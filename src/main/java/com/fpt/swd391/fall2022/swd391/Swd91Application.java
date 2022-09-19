@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd91;
+package com.fpt.swd391.fall2022.swd391;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
