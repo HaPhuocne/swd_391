@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd91.Controller;
+package com.fpt.swd391.fall2022.swd391.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

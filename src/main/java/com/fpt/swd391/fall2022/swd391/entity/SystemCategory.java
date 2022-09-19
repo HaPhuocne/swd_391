@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd91.entity;
+package com.fpt.swd391.fall2022.swd391.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,29 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class InventoryProduct {
+@AllArgsConstructor
+public class SystemCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int quantity;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_note_id")
-    private InventoryNote inventoryNote;
+    private int rank;
 
     @ManyToOne
     @JoinColumn(name = "ware_house_id")
     private WareHouse wareHouse;
+
+    @OneToMany(mappedBy = "systemCategory",cascade = CascadeType.ALL)
+    private Set<Product> products;
 }

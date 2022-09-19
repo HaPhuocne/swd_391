@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd91.entity;
+package com.fpt.swd391.fall2022.swd391.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,20 +13,22 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetail {
+public class InventoryProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nameProduct;
-    private Long price;
+
     private int quantity;
-    private String image;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "inventory_note_id")
+    private InventoryNote inventoryNote;
+
+    @ManyToOne
+    @JoinColumn(name = "ware_house_id")
+    private WareHouse wareHouse;
 }

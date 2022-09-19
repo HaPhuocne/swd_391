@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd91.entity;
+package com.fpt.swd391.fall2022.swd391.entity;
 
 
 import lombok.AllArgsConstructor;
