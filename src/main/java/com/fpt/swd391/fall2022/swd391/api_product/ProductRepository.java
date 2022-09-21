@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd391.api_Product;
+package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

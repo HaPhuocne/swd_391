@@ -1,8 +1,6 @@
-package com.fpt.swd391.fall2022.swd391.api_Product;
+package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.entity.Product;
-import com.fpt.swd391.fall2022.swd391.entity.Shop;
-import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
