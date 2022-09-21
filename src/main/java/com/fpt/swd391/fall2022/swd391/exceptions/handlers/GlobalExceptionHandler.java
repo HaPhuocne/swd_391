@@ -89,4 +89,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return new ResponseEntity<>(errorRespond, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler({ ForbiddenException.class })
+	protected ResponseEntity<ErrorRespond> ForbiddenException(RuntimeException exception, WebRequest request) {
+		ErrorRespond error = new ErrorRespond(400, exception.getMessage());
+		return new ResponseEntity<ErrorRespond>(error, HttpStatus.NOT_FOUND);
+	}
 }

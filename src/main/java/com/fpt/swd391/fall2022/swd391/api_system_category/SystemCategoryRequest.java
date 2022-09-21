@@ -1,12 +1,8 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SystemCategoryRequest {
