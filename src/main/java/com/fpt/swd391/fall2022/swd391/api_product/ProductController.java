@@ -19,7 +19,7 @@ public class ProductController {
         return productService.createProduct(productRequest,idShop);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     ProductResponse updateProduct(@Valid @RequestBody ProductRequest productRequest,@PathVariable Long id){
         return productService.updateProduct(productRequest,id);
     }
@@ -29,7 +29,7 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     ResponseEntity<?> deleteProduct(@PathVariable Long id){
         if(productService.deleteProduct(id)){
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);

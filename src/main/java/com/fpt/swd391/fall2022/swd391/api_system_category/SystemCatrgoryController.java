@@ -19,7 +19,7 @@ public class SystemCatrgoryController {
         return systemCategoryService.createCategory(systemCategoryRequest);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     SystemCategoryResponse updateNameSystemCategory(@Valid @RequestBody SystemCategoryRequest systemCategoryRequest,@PathVariable Long id){
         return systemCategoryService.updateNameCategory(systemCategoryRequest,id);
     }
@@ -29,7 +29,7 @@ public class SystemCatrgoryController {
         return systemCategoryService.getAllCategory();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     ResponseEntity<?> deleteCategory(Long id){
         if (systemCategoryService.deleteCategory(id)){
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);

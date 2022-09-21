@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface SystemCategoryRepository extends JpaRepository<SystemCategory,Long> {
-    @Query(value = "SELECT s.* from system_category s where s.name = :name and s.status = 1",nativeQuery = true)
+    @Query(value = "SELECT s.* from system_category s where s.name = :name and s.status = true",nativeQuery = true)
     Optional<SystemCategory> findByName(String name);
-    @Query(value = "SELECT s.* from system_category s where s.status = 1",nativeQuery = true)
+    @Query(value = "SELECT s.* from system_category s where s.status = true",nativeQuery = true)
     List<SystemCategory> getAllCategoryByStatus();
 }
