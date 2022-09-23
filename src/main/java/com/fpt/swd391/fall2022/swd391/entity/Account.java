@@ -20,8 +20,8 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String emai;
-    private String pasword;
+    private String email;
+    private String password;
     private String fullname;
     private int phone;
     private String address;
