@@ -23,6 +23,5 @@ public class UserDtoRequest {
     @NotNull
     private String image;
 
-    private String role ;
     private boolean status ;
 }

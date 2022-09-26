@@ -5,6 +5,7 @@ import com.fpt.swd391.fall2022.swd391.api_User.dto.UserDtoRequest;
 import com.fpt.swd391.fall2022.swd391.api_User.dto.UserDtoRequestLogin;
 import com.fpt.swd391.fall2022.swd391.api_User.dto.UserDtoResponse;
 import com.fpt.swd391.fall2022.swd391.entity.Account;
+import com.fpt.swd391.fall2022.swd391.entity.Role;
 import com.fpt.swd391.fall2022.swd391.jwtToken.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,15 @@ public class UserServiceImpl implements UserService{
     final UserRepository userRepository;
     final ModelMapper modelMapper;
     final AuthenticationManager manager;
+    final RoleRepository roleRepository;
+
     final JwtUtil jwtUtil;
     final PasswordEncoder passwordEncoder ;
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AuthenticationManager manager, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AuthenticationManager manager, RoleRepository roleRepository, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.manager = manager;
+        this.roleRepository = roleRepository;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
     }
@@ -41,10 +45,18 @@ public class UserServiceImpl implements UserService{
         }
         Account account = modelMapper.map(userDtoRequest,Account.class);
         account.setPassword(passwordEncoder.encode(userDtoRequest.getPassword()));
-        account.setRole("Customer");
-        account.setStatus(true);
-        userRepository.save(account);
-        return ResponseEntity.ok().body(new MessageResponse("Create Email Successful", null));
+
+        Optional<Role> optionalRole = roleRepository.findById(2L);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+            account.setRole(role);
+            account.setStatus(true);
+            userRepository.save(account);
+            return ResponseEntity.ok().body(new MessageResponse("Create Email Successful", null));
+
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("Roles not found", userDtoRequest));
+
     }
 
     @Override
