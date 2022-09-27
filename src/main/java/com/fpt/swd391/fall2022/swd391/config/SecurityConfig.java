@@ -1,6 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.config;
 
-import com.fpt.swd391.fall2022.swd391.api_User.UserRepository;
+import com.fpt.swd391.fall2022.swd391.api_user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
