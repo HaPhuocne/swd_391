@@ -26,6 +26,7 @@ public class Product {
     private String color;
     private String URL;
     private boolean status;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "system_category_id")

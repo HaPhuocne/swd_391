@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd391.api_shop;
+package com.fpt.swd391.fall2022.swd391.api_user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShopResponse {
-    Long id;
-    String name;
-    String address;
+public class UserDtoResponse {
+    private String email;
+    private String token;
 }
