@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService{
         Account account = modelMapper.map(userDtoRequest,Account.class);
         account.setPassword(passwordEncoder.encode(userDtoRequest.getPassword()));
 
-        Optional<Role> optionalRole = userRoleRepository.findById(6L);
+        Optional<Role> optionalRole = userRoleRepository.findById(2L);
         if (optionalRole.isPresent()) {
             Role role = optionalRole.get();
             account.setRole(role);
