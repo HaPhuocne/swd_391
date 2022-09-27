@@ -1,11 +1,12 @@
 package com.fpt.swd391.fall2022.swd391.api_role;
 
+import com.fpt.swd391.fall2022.swd391.api_role.dto.MessageResponse;
 import com.fpt.swd391.fall2022.swd391.api_role.dto.RoleDto;
+import com.fpt.swd391.fall2022.swd391.entity.Role;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("roles")
@@ -17,11 +18,12 @@ public class RoleController {
     }
 
     @PostMapping
-        ResponseEntity<?> createNewRole(RoleDto roleDto){
+        ResponseEntity<?> createNewRole(@RequestBody RoleDto roleDto){
         return roleService.createNewRole(roleDto);
         }
         @GetMapping
     ResponseEntity<?> all(){
-        return roleService.getAll();
+        List<Role> list =   roleService.getAll();
+        return ResponseEntity.ok().body(new MessageResponse("List",null)) ;
     }
 }

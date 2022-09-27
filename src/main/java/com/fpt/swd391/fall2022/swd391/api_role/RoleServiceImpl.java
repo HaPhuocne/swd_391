@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 
 public class RoleServiceImpl implements RoleService{
@@ -20,12 +22,12 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public ResponseEntity<?> createNewRole(RoleDto roleDto) {
-        return ResponseEntity.ok(new MessageResponse("Ok",roleRepository.save(modelMapper.map(roleDto, Role.class))));
+        roleRepository.save(modelMapper.map(roleDto, Role.class));
+        return ResponseEntity.ok(new MessageResponse("Ok",roleDto));
     }
 
     @Override
-    public ResponseEntity<?> getAll() {
-        roleRepository.findAll();
-        return ResponseEntity.ok().body(new MessageResponse("List",null));
+    public List<Role> getAll() {
+        return roleRepository.findAll();
     }
 }

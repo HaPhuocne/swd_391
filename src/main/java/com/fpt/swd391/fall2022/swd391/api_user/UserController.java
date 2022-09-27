@@ -22,11 +22,11 @@ public class UserController {
 
     @PostMapping("/login")
     ResponseEntity<?> login(@RequestBody @Valid UserDtoRequestLogin request) {
-        return userService.signIn(request);
+        return userService.Login(request);
     }
     @PostMapping("/register")
     ResponseEntity<?> register(@RequestBody @Valid UserDtoRequest request) {
-        return userService.signUp(request);
+        return userService.Register(request);
     }
 }
 //test
