@@ -44,8 +44,6 @@ public class Account implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
