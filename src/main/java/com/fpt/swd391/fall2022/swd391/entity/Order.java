@@ -19,7 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int totalPrice;
-    private String location;
+    private String address;
     private boolean status;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
