@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public ResponseEntity<?> signUp(UserDtoRequest userDtoRequest) {
+    public ResponseEntity<?> Register(UserDtoRequest userDtoRequest) {
         Optional<Account> optionalUser = userRepository.findByEmail(userDtoRequest.getEmail());
         if (optionalUser.isPresent()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Email is exist", userDtoRequest));
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ResponseEntity<?> signIn(UserDtoRequestLogin userDtoRequestLogin) {
+    public ResponseEntity<?> Login(UserDtoRequestLogin userDtoRequestLogin) {
         try {
             Authentication authentication = manager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDtoRequestLogin.getEmail(), userDtoRequestLogin.getPassword())

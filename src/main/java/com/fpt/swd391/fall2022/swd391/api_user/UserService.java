@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    ResponseEntity<?> signIn(UserDtoRequestLogin userDtoRequestLogin);
-    ResponseEntity<?> signUp(UserDtoRequest userDtoRequest);
+    ResponseEntity<?> Login(UserDtoRequestLogin userDtoRequestLogin);
+    ResponseEntity<?> Register(UserDtoRequest userDtoRequest);
 
 
 }
