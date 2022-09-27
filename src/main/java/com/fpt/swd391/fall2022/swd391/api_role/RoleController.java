@@ -1,6 +1,5 @@
 package com.fpt.swd391.fall2022.swd391.api_role;
 
-import com.fpt.swd391.fall2022.swd391.api_role.dto.MessageResponse;
 import com.fpt.swd391.fall2022.swd391.api_role.dto.RoleDto;
 import com.fpt.swd391.fall2022.swd391.entity.Role;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +17,13 @@ public class RoleController {
     }
 
     @PostMapping
-        ResponseEntity<?> createNewRole(@RequestBody RoleDto roleDto){
+    ResponseEntity<?> createNewRole(@RequestBody RoleDto roleDto) {
         return roleService.createNewRole(roleDto);
-        }
-        @GetMapping
-    ResponseEntity<?> all(){
-        List<Role> list =   roleService.getAll();
-        return ResponseEntity.ok().body(new MessageResponse("List",null)) ;
     }
+
+    @GetMapping
+    List<Role> getAll() {
+        return roleService.getAll();
+    }
+
 }
