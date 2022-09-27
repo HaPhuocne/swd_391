@@ -30,8 +30,8 @@ public class Account implements UserDetails {
     private String phone;
     private String address;
     private String image;
-    private String role;
     private boolean status;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date birthday;
@@ -39,6 +39,12 @@ public class Account implements UserDetails {
     private Shop shop;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "account")
     private Set<WareHouse> wareHouses;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
