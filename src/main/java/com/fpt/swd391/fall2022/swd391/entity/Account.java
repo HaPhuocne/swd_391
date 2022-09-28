@@ -40,9 +40,14 @@ public class Account implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "account")
     private Set<WareHouse> wareHouses;
 
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    private Set<Order> order;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+        private Collection<Cart> cartItemCollection;
 
 
 

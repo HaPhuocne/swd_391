@@ -20,10 +20,13 @@ public class Order {
     private Long id;
     private int totalPrice;
     private String location;
-    private boolean status;
+    private boolean status = false;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
