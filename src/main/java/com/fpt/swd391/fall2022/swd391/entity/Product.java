@@ -19,13 +19,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String deseption;
+    private String deception;
     private int quantity;
     private int price;
     private int size;
     private String color;
     private String URL;
     private boolean status;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "system_category_id")

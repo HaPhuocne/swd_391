@@ -31,6 +31,7 @@ public class Account implements UserDetails {
     private String address;
     private String image;
     private boolean status;
+    private float wallet;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -48,8 +49,6 @@ public class Account implements UserDetails {
     private Role role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
         private Collection<Cart> cartItemCollection;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
