@@ -11,15 +11,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ShopServiceImpl implements ShopService{
-    @Autowired
+    final
     ShopRepository shopRepository;
-    @Autowired
+    final
     UserRepository userRepository;
-    @Autowired
+    final
     ModelMapper modelMapper;
 
-    @Autowired
+    final
     ProductRepository productRepository;
+
+    public ShopServiceImpl(ShopRepository shopRepository, UserRepository userRepository, ModelMapper modelMapper, ProductRepository productRepository) {
+        this.shopRepository = shopRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+        this.productRepository = productRepository;
+    }
+
     @Override
     public ShopResponse addShop(Long idAccount, ShopRequest shopRequest) {
         Shop shop = modelMapper.map(shopRequest,Shop.class);

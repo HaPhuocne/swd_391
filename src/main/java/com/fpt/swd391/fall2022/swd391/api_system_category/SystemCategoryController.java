@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/system-categories")
-public class SystemCatrgoryController {
+public class SystemCategoryController {
     @Autowired
     SystemCategoryService systemCategoryService;
 

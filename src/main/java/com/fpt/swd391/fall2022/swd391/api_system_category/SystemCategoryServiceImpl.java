@@ -14,10 +14,15 @@ import java.util.Optional;
 
 @Service
 public class SystemCategoryServiceImpl implements SystemCategoryService{
-    @Autowired
+    final
     SystemCategoryRepository categoryRepository;
-    @Autowired
+    final
     ModelMapper modelMapper;
+
+    public SystemCategoryServiceImpl(SystemCategoryRepository categoryRepository, ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public SystemCategoryResponse createCategory(SystemCategoryRequest categoryRequest) {
@@ -34,10 +39,10 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
     @Override
     public SystemCategoryResponse updateNameCategory(SystemCategoryRequest categoryRequest, Long id) {
         SystemCategory systemCategory = categoryRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Not found System Category")
+                () -> new ResourceNotFoundException("Not found System Category")
         );
         Optional<SystemCategory> categoryOptional = categoryRepository.findByName(categoryRequest.getName());
-        if(categoryOptional.isPresent() || systemCategory.getName().equals(categoryRequest.getName()) ){
+        if(!categoryOptional.isPresent() || systemCategory.getName().equals(categoryRequest.getName()) ){
             modelMapper.map(categoryRequest, systemCategory);
             categoryRepository.save(systemCategory);
             return modelMapper.map(systemCategory, SystemCategoryResponse.class);
@@ -49,7 +54,7 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
     public List<SystemCategoryResponse> getAllCategory() {
         List<SystemCategory> categoryList = categoryRepository.getAllCategoryByStatus();
         if(categoryList.isEmpty()){
-            throw new ResourceNotFoundException("Hotel not found");
+            throw new ResourceNotFoundException("SystemCategory not found");
         }
         List<SystemCategoryResponse> hotelResponseList = new ArrayList<>();
         categoryList.forEach(h -> hotelResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
@@ -59,9 +64,9 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
     @Override
     public boolean deleteCategory(Long id) {
         SystemCategory systemCategory = categoryRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Hotel not found"));
+                () -> new ResourceNotFoundException("SystemCategory not found"));
         if (!systemCategory.isStatus()){
-            throw new ForbiddenException("Hotel already disable");
+            throw new ForbiddenException("SystemCategory already disable");
         }
         systemCategory.setStatus(false);
         categoryRepository.save(systemCategory);
