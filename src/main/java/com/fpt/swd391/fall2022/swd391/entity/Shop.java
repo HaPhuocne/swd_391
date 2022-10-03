@@ -21,6 +21,8 @@ public class Shop {
     private String name;
     private String address;
 
+    private boolean status;
+
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;

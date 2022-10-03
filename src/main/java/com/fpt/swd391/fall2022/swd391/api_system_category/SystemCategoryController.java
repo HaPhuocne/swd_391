@@ -9,8 +9,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/SystemCategory")
-public class SystemCatrgoryController {
+@RequestMapping("/system-categories")
+public class SystemCategoryController {
     @Autowired
     SystemCategoryService systemCategoryService;
 
@@ -30,7 +30,7 @@ public class SystemCatrgoryController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteCategory(Long id){
+    ResponseEntity<?> deleteCategory(@PathVariable Long id){
         if (systemCategoryService.deleteCategory(id)){
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);
         }
