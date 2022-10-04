@@ -6,8 +6,8 @@ import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
+import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -16,14 +16,21 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService{
-    @Autowired
+    final
     ProductRepository productRepository;
-    @Autowired
+    final
     ModelMapper modelMapper;
-    @Autowired
+    final
     ShopRepository shopRepository;
-    @Autowired
+    final
     SystemCategoryRepository categoryRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, ShopRepository shopRepository, SystemCategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
+        this.shopRepository = shopRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest, Long idShop) {
@@ -68,13 +75,18 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductResponse> getAllProduct() {
         List<Product> productList = productRepository.getAllByStatus();
         if (productList.isEmpty()){
-            throw new ForbiddenException("No product");
+            throw new ResourceNotFoundException("No product");
         }
         List<ProductResponse> productResponseList = new ArrayList<>();
-        productResponseList.forEach(
+        productList.forEach(
                 p -> productResponseList.add(modelMapper.map(p,ProductResponse.class))
         );
         return productResponseList;
+    }
+
+    @Override
+    public ProductResponse getProductBy(String id) {
+        return null;
     }
 
     @Override

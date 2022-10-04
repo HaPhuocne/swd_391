@@ -15,4 +15,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Query(value = "SELECT p.* FROM product p where p.system_category_id = :idCategory",nativeQuery = true)
     Optional<Product> deleteProductByIdSystemCategory(Long idCategory);
+
+    @Query(value = "select p.* from product p where p.name = :id OR p.",nativeQuery = true)
+    Optional<Product> getProductBy(String id);
 }

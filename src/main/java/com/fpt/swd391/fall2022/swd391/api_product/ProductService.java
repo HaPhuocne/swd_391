@@ -8,5 +8,6 @@ public interface ProductService {
     ProductResponse createProduct(ProductRequest productRequest,Long idShop);
     ProductResponse updateProduct(ProductRequest productRequest,Long id);
     List<ProductResponse> getAllProduct();
+    ProductResponse getProductBy(String id);
     boolean deleteProduct(Long id);
 }
