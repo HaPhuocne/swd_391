@@ -13,6 +13,7 @@ import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -77,11 +78,12 @@ public class ProductServiceImpl implements ProductService{
         if (productList.isEmpty()){
             throw new ResourceNotFoundException("No product");
         }
-        List<ProductResponse> productResponseList = new ArrayList<>();
-        productList.forEach(
-                p -> productResponseList.add(modelMapper.map(p,ProductResponse.class))
-        );
-        return productResponseList;
+        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
+//        List<ProductResponse> productResponseList = new ArrayList<>();
+//        productList.forEach(
+//                p -> productResponseList.add(modelMapper.map(p,ProductResponse.class))
+//        );
+//        return productResponseList;
     }
 
     @Override

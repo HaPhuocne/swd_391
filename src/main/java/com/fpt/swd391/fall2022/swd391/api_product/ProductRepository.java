@@ -16,6 +16,9 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "SELECT p.* FROM product p where p.system_category_id = :idCategory",nativeQuery = true)
     Optional<Product> deleteProductByIdSystemCategory(Long idCategory);
 
-    @Query(value = "select p.* from product p where p.name = :id OR p.",nativeQuery = true)
-    Optional<Product> getProductBy(String id);
+    @Query(value = "select p.* from product p " +
+            "join system_category s on s.id = p.system_category_id" +
+            "where (lower(p.name)  like lower(concat('%', :content,'%'))) " +
+            "or (lower(s.name) like lower(concat('%', :content,'%')))",nativeQuery = true)
+    Optional<Product> searchProductBy(String content);
 }
