@@ -37,10 +37,10 @@ public class ProductServiceImpl implements ProductService{
     public ProductResponse createProduct(ProductRequest productRequest, Long idShop) {
         Product product = modelMapper.map(productRequest,Product.class);
         Shop shop = shopRepository.findById(idShop).orElseThrow(
-                () -> new NotFoundException("Not found shop")
+                () -> new ResourceNotFoundException("Not found shop")
         );
         SystemCategory systemCategory = categoryRepository.findById(productRequest.getIdSystemCategory()).orElseThrow(
-                ()-> new NotFoundException("Not found systemCategory")
+                ()-> new ResourceNotFoundException("Not found systemCategory")
         );
         product.setShop(shop);
         product.setSystemCategory(systemCategory);
@@ -87,11 +87,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductResponse getProductBy(String id) {
-        return null;
-    }
-
-    @Override
     public boolean deleteProduct(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Not found product")
@@ -106,7 +101,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<ProductResponse> searchProductBy(String content) {
-//        List<Product>
-        return null;
+        List<Product> productList = productRepository.searchProductBy(content);
+        if (productList.isEmpty()){
+            throw new ResourceNotFoundException("No product");
+        }
+        return productList.stream().map(ProductResponse :: buildFromProduct).collect(Collectors.toList());
     }
 }

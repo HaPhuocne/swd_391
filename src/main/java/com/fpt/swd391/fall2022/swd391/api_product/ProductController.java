@@ -14,7 +14,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @PostMapping
+    @PostMapping("/{idShop}")
     ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequest, @PathVariable Long idShop){
         return productService.createProduct(productRequest,idShop);
     }
@@ -35,5 +35,10 @@ public class ProductController {
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);
         }
         return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{content}")
+    List<ProductResponse> searchProductByContent(@PathVariable String content){
+        return productService.searchProductBy(content);
     }
 }

@@ -14,6 +14,6 @@ public class ProductRequest {
     int size;
     String deception;
     String color;
-    private String image;
+    String image;
     long idSystemCategory;
 }
