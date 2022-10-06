@@ -4,9 +4,7 @@ import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,7 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
                 () -> new ResourceNotFoundException("Not found System Category")
         );
         Optional<SystemCategory> categoryOptional = categoryRepository.findByName(categoryRequest.getName());
-        if(categoryOptional.isEmpty() || systemCategory.getName().equals(categoryRequest.getName()) ){
+        if(!categoryOptional.isPresent() || systemCategory.getName().equals(categoryRequest.getName()) ){
             modelMapper.map(categoryRequest, systemCategory);
             categoryRepository.save(systemCategory);
             return modelMapper.map(systemCategory, SystemCategoryResponse.class);
