@@ -62,12 +62,12 @@ public class ProductServiceImpl implements ProductService{
         SystemCategory systemCategory = categoryRepository.findById(productRequest.getIdSystemCategory()).orElseThrow(
                 ()-> new NotFoundException("Not found systemCategory")
         );
-        Product product = modelMapper.map(oldProduct,Product.class);
-        product.setShop(oldProduct.getShop());
-        product.setSystemCategory(systemCategory);
-        product.setStatus(oldProduct.isStatus());
+        modelMapper.map(productRequest,oldProduct);
+        oldProduct.setShop(oldProduct.getShop());
+        oldProduct.setSystemCategory(systemCategory);
+        oldProduct.setStatus(oldProduct.isStatus());
 
-        Product saveProduct= productRepository.save(product);
+        Product saveProduct= productRepository.save(oldProduct);
 
         return ProductResponse.buildFromProduct(saveProduct);
     }

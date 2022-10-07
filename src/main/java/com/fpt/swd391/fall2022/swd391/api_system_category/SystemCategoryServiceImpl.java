@@ -1,9 +1,13 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
+import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -54,9 +58,9 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
         if(categoryList.isEmpty()){
             throw new ResourceNotFoundException("SystemCategory not found");
         }
-        List<SystemCategoryResponse> hotelResponseList = new ArrayList<>();
-        categoryList.forEach(h -> hotelResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
-        return hotelResponseList;
+        List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
+        categoryList.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
+        return systemCategoryResponseList;
     }
 
     @Override
@@ -69,5 +73,13 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
         systemCategory.setStatus(false);
         categoryRepository.save(systemCategory);
         return true;
+    }
+
+    public List<SystemCategoryResponse> findSystemCategories(int pageNo,int pageSize){
+    Pageable pageable = PageRequest.of(pageNo,pageSize);
+    Page<SystemCategory> systemCategoryPage = categoryRepository.findAll(pageable);
+    List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
+    systemCategoryPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
+    return systemCategoryResponseList;
     }
 }

@@ -1,5 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
+import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,10 @@ public class SystemCategoryController {
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);
         }
         return new ResponseEntity<>("DELETE FAIL",null,HttpStatus.BAD_REQUEST);
+    }
+    @GetMapping("/{pageNo}/{pageSize}")
+    List<SystemCategoryResponse> getPaginated(@PathVariable int pageNo,@PathVariable int pageSize){
+        return systemCategoryService.findSystemCategories(pageNo,pageSize);
     }
 
 }
