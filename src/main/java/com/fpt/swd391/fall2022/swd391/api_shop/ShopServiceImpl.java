@@ -35,6 +35,7 @@ public class ShopServiceImpl implements ShopService{
                 () -> new ResourceNotFoundException("Not found account")
         );
         shop.setAccount(account);
+        shop.setStatus(true);
         shopRepository.save(shop);
         return modelMapper.map(shop,ShopResponse.class);
     }

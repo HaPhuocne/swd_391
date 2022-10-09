@@ -1,9 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.api_inventory_product;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -17,8 +14,8 @@ public class InventoryProductController{
         this.inventoryProductService = inventoryProductService;
     }
 
-    @PostMapping
-    InventoryProductResponse addInventoryProduct(@Valid @RequestBody InventoryProductRequest inventoryProductRequest){
-        return inventoryProductService.addInventoryProduct(inventoryProductRequest);
+    @PostMapping("/{idWareHouse}/{idProduct}/{idInventoryNote}")
+    InventoryProductResponse addInventoryProduct(@Valid @RequestBody InventoryProductRequest inventoryProductRequest, @PathVariable Long idWareHouse,@PathVariable Long idProduct,@PathVariable Long idInventoryNote){
+        return inventoryProductService.addInventoryProduct(inventoryProductRequest, idWareHouse, idProduct, idInventoryNote);
     }
 }
