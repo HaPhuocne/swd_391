@@ -2,12 +2,16 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryRepository;
+import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -79,11 +83,14 @@ public class ProductServiceImpl implements ProductService{
             throw new ResourceNotFoundException("No product");
         }
         return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
-//        List<ProductResponse> productResponseList = new ArrayList<>();
-//        productList.forEach(
-//                p -> productResponseList.add(modelMapper.map(p,ProductResponse.class))
-//        );
-//        return productResponseList;
+    }
+    @Override
+    public List<ProductResponse> findProduct(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Product> productPage = productRepository.findAll(pageable);
+//        List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
+//        productPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
+        return productPage.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
     }
 
     @Override
@@ -100,8 +107,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductResponse> searchProductBy(String content) {
-        List<Product> productList = productRepository.searchProductBy(content);
+    public List<ProductResponse> searchProductBy(String content,int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Product> productList = productRepository.searchProductBy(content,pageable);
         if (productList.isEmpty()){
             throw new ResourceNotFoundException("No product");
         }

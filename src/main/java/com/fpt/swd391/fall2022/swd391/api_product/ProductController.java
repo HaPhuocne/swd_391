@@ -1,5 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.api_product;
 
+import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +38,12 @@ public class ProductController {
         return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/{content}")
-    List<ProductResponse> searchProductByContent(@PathVariable String content){
-        return productService.searchProductBy(content);
+    @GetMapping("/{content}/{pageNo}/{pageSize}")
+    List<ProductResponse> searchProductByContent(@PathVariable String content,@PathVariable int pageNo, @PathVariable int pageSize){
+        return productService.searchProductBy(content,pageNo,pageSize);
+    }
+    @GetMapping("/{pageNo}/{pageSize}")
+    List<ProductResponse> getPaginated(@PathVariable int pageNo, @PathVariable int pageSize){
+        return productService.findProduct(pageNo,pageSize);
     }
 }
