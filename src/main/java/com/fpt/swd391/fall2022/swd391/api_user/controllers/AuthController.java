@@ -1,5 +1,6 @@
-package com.fpt.swd391.fall2022.swd391.api_user;
+package com.fpt.swd391.fall2022.swd391.api_user.controllers;
 
+import com.fpt.swd391.fall2022.swd391.api_user.UserService;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.UserDtoRequest;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.UserDtoRequestLogin;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping
-public class UserController {
+public class AuthController {
     final
     UserService userService;
 
-    public UserController(UserService userService) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
