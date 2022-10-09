@@ -2,37 +2,49 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryRepository;
+import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
+import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
-    @Autowired
+    final
     ProductRepository productRepository;
-    @Autowired
+    final
     ModelMapper modelMapper;
-    @Autowired
+    final
     ShopRepository shopRepository;
-    @Autowired
+    final
     SystemCategoryRepository categoryRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, ShopRepository shopRepository, SystemCategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
+        this.shopRepository = shopRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest, Long idShop) {
         Product product = modelMapper.map(productRequest,Product.class);
         Shop shop = shopRepository.findById(idShop).orElseThrow(
-                () -> new NotFoundException("Not found shop")
+                () -> new ResourceNotFoundException("Not found shop")
         );
         SystemCategory systemCategory = categoryRepository.findById(productRequest.getIdSystemCategory()).orElseThrow(
-                ()-> new NotFoundException("Not found systemCategory")
+                ()-> new ResourceNotFoundException("Not found systemCategory")
         );
         product.setShop(shop);
         product.setSystemCategory(systemCategory);
@@ -54,12 +66,12 @@ public class ProductServiceImpl implements ProductService{
         SystemCategory systemCategory = categoryRepository.findById(productRequest.getIdSystemCategory()).orElseThrow(
                 ()-> new NotFoundException("Not found systemCategory")
         );
-        Product product = modelMapper.map(oldProduct,Product.class);
-        product.setShop(oldProduct.getShop());
-        product.setSystemCategory(systemCategory);
-        product.setStatus(oldProduct.isStatus());
+        modelMapper.map(productRequest,oldProduct);
+        oldProduct.setShop(oldProduct.getShop());
+        oldProduct.setSystemCategory(systemCategory);
+        oldProduct.setStatus(oldProduct.isStatus());
 
-        Product saveProduct= productRepository.save(product);
+        Product saveProduct= productRepository.save(oldProduct);
 
         return ProductResponse.buildFromProduct(saveProduct);
     }
@@ -68,13 +80,17 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductResponse> getAllProduct() {
         List<Product> productList = productRepository.getAllByStatus();
         if (productList.isEmpty()){
-            throw new ForbiddenException("No product");
+            throw new ResourceNotFoundException("No product");
         }
-        List<ProductResponse> productResponseList = new ArrayList<>();
-        productResponseList.forEach(
-                p -> productResponseList.add(modelMapper.map(p,ProductResponse.class))
-        );
-        return productResponseList;
+        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
+    }
+    @Override
+    public List<ProductResponse> findProduct(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Product> productPage = productRepository.findAll(pageable);
+//        List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
+//        productPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
+        return productPage.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
     }
 
     @Override
@@ -88,5 +104,15 @@ public class ProductServiceImpl implements ProductService{
         product.setStatus(false);
         productRepository.save(product);
         return true;
+    }
+
+    @Override
+    public List<ProductResponse> searchProductBy(String content,int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Product> productList = productRepository.searchProductBy(content,pageable);
+        if (productList.isEmpty()){
+            throw new ResourceNotFoundException("No product");
+        }
+        return productList.stream().map(ProductResponse :: buildFromProduct).collect(Collectors.toList());
     }
 }

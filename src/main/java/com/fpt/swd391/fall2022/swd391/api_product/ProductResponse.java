@@ -14,6 +14,9 @@ public class ProductResponse {
     String name;
     int price;
     int quantity;
+    int size;
+    String color;
+    String image;
     String systemCategoryName;
 
     public static ProductResponse buildFromProduct(Product product){
@@ -22,6 +25,9 @@ public class ProductResponse {
                 product.getName(),
                 product.getPrice(),
                 product.getQuantity(),
+                product.getSize(),
+                product.getColor(),
+                product.getImage(),
                 product.getSystemCategory().getName()
         );
     }

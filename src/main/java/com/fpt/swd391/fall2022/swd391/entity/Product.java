@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,8 @@ public class Product {
     private String color;
     private String URL;
     private boolean status;
+
+    @Column(columnDefinition = "varchar(1000)", nullable = false)
     private String image;
 
     @ManyToOne
