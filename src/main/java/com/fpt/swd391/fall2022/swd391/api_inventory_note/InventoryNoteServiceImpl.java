@@ -2,6 +2,7 @@ package com.fpt.swd391.fall2022.swd391.api_inventory_note;
 
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_warehouse.WareHouesRepository;
+import com.fpt.swd391.fall2022.swd391.api_warehouse.WareHouseResponse;
 import com.fpt.swd391.fall2022.swd391.entity.InventoryNote;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.WareHouse;
@@ -44,6 +45,8 @@ public class InventoryNoteServiceImpl implements InventoryNoteService{
         inventoryNote.setShopName(shop.getName());
         inventoryNote.setShop(shop);
         inventoryNote.setWareHouse(wareHouse);
+        modelMapper.map(wareHouse, WareHouseResponse.class);
+        wareHouesRepository.save(wareHouse);
         inventoryNote.setStatus(true);
         inventoryNoteRepository.save(inventoryNote);
         return modelMapper.map(inventoryNote,InventoryNoteResponse.class);

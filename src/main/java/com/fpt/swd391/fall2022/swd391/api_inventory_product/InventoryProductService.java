@@ -4,6 +4,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface InventoryProductService {
-    InventoryProductResponse addInventoryProduct(InventoryProductRequest inventoryProductRequest);
+    InventoryProductResponse addInventoryProduct(InventoryProductRequest inventoryProductRequest,Long idWareHouse,Long idProduct,Long idInventoryNote);
 
 }
