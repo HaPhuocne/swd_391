@@ -1,4 +1,4 @@
-package com.fpt.swd391.fall2022.swd391.api_user;
+package com.fpt.swd391.fall2022.swd391.api_warehouse.api_user;
 
 
 import java.util.Optional;
