@@ -30,8 +30,9 @@ public class InformationController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
-                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "403" , description = "Truyền sai dữ liệu"),
                     @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
 
@@ -46,8 +47,9 @@ public class InformationController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
-                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "403" , description = "Truyền sai dữ liệu"),
                     @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
 
@@ -63,8 +65,9 @@ public class InformationController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
-                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "403" , description = "Truyền sai dữ liệu"),
                     @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
     )
@@ -78,8 +81,9 @@ public class InformationController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
-                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "403" , description = "Truyền sai dữ liệu"),
                     @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
     )
@@ -93,8 +97,9 @@ public class InformationController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
-                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "403" , description = "Truyền sai dữ liệu"),
                     @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
     )
