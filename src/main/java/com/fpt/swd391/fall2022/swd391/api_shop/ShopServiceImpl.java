@@ -6,7 +6,6 @@ import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

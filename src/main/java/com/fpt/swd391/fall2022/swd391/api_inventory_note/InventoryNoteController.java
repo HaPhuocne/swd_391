@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/inventory-notes")
 public class InventoryNoteController {
-    @Autowired
+    final
     InventoryNoteService inventoryNoteService;
+
+    public InventoryNoteController(InventoryNoteService inventoryNoteService) {
+        this.inventoryNoteService = inventoryNoteService;
+    }
 
     @PostMapping("/{idShop}/{idWareHouse}")
     InventoryNoteResponse addInventoryNote(@PathVariable Long idShop, @PathVariable Long idWareHouse, @Valid @RequestBody InventoryNoteRequest inventoryNoteRequest){

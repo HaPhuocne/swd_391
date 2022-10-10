@@ -1,6 +1,5 @@
 package com.fpt.swd391.fall2022.swd391.api_shop;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +9,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/shops")
 public class ShopController {
-    @Autowired
+    final
     ShopService shopService;
+
+    public ShopController(ShopService shopService) {
+        this.shopService = shopService;
+    }
 
     @PostMapping("/{idAccount}")
     ShopResponse addNewShop(@PathVariable Long idAccount, @Valid @RequestBody ShopRequest shopRequest) {

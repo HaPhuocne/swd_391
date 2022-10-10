@@ -1,6 +1,5 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
-import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
