@@ -3,6 +3,7 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.PageResponse;
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
@@ -91,6 +92,24 @@ public class ProductServiceImpl implements ProductService{
 //        List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
 //        productPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
         return productPage.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductPageResponse<ProductResponse> ListContentSearchProduct(String content, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        Page<Product> productPage = productRepository.searchProductBy(content,pageable);
+        if (productPage.isEmpty()) {
+            throw new ResourceNotFoundException("No Page");
+        }
+        return new ProductPageResponse<ProductResponse>()
+                .setPageSize(productPage.getSize())
+                .setTotalSize(productPage.getTotalElements())
+                .setList(productPage
+                        .stream()
+                        .map(ProductResponse :: buildFromProduct)
+                        .collect(Collectors.toList()))
+                .setPageNo(productPage.getNumber())
+                ;
     }
 
     @Override

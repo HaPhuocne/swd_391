@@ -1,7 +1,7 @@
 package com.fpt.swd391.fall2022.swd391.api_shop;
 
 import com.fpt.swd391.fall2022.swd391.api_product.ProductRepository;
-import com.fpt.swd391.fall2022.swd391.api_warehouse.api_user.UserRepository;
+import com.fpt.swd391.fall2022.swd391.api_user.UserRepository;
 import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;

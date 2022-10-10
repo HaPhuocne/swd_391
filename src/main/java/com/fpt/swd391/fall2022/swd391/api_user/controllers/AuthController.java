@@ -1,8 +1,8 @@
-package com.fpt.swd391.fall2022.swd391.api_warehouse.api_user.controllers;
+package com.fpt.swd391.fall2022.swd391.api_user.controllers;
 
-import com.fpt.swd391.fall2022.swd391.api_warehouse.api_user.UserService;
-import com.fpt.swd391.fall2022.swd391.api_warehouse.api_user.dto.UserDtoRequest;
-import com.fpt.swd391.fall2022.swd391.api_warehouse.api_user.dto.UserDtoRequestLogin;
+import com.fpt.swd391.fall2022.swd391.api_user.UserService;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.UserDtoRequest;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.UserDtoRequestLogin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
