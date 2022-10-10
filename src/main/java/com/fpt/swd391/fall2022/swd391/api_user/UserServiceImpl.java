@@ -17,9 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -65,30 +64,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<InformationUserDtoResponse> listFilterSearchPaging(String content, int pageNo, int pageSize) {
+    public PageResponse<InformationUserDtoResponse> listFilterSearchPaging(String content, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
+        if (content == null) {
+            content = "";
+        }
         Page<Account> accountPage = userRepository.listFilterSearchPaging(content, pageable);
-        List<InformationUserDtoResponse> list = new ArrayList<>();
         if (accountPage.isEmpty()) {
             throw new ResourceNotFoundException("No Page");
         }
-        accountPage.forEach(account -> list.add(modelMapper.map(account, InformationUserDtoResponse.class)));
 
-        return list;
+//        accountPage.forEach(account -> list.add(modelMapper.map(account, InformationUserDtoResponse.class)));
+
+        return new PageResponse<InformationUserDtoResponse>()
+                .setPageSize(accountPage.getSize())
+                .setTotalSize(accountPage.getTotalElements())
+                .setList(accountPage.getContent()
+                        .stream()
+                        .map(acc -> modelMapper.map(acc, InformationUserDtoResponse.class))
+                        .collect(Collectors.toList()))
+                .setPageNumber(accountPage.getNumber());
+
 
     }
 
-    @Override
-    public List<InformationUserDtoResponse> list(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Account> accountPage = userRepository.findAll(pageable);
-        List<InformationUserDtoResponse> list = new ArrayList<>();
-        if (accountPage.isEmpty()) {
-            throw new ResourceNotFoundException("No Page");
-        }
-        accountPage.forEach(account -> list.add(modelMapper.map(account, InformationUserDtoResponse.class)));
-        return list;
-    }
 
     @Override
     public ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, Long id) {
@@ -112,10 +111,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> Delete(Long id) {
-        Optional<Account> accountOptional = userRepository.findById(id);
-
-        if (accountOptional.isPresent()) {
-            Account account = accountOptional.get();
+        Optional<Account> optional = userRepository.findById(id);
+        if (optional.isPresent()) {
+            Account account = optional.get();
             if (account.isStatus()) {
                 account.setStatus(false);
                 userRepository.save(account);
@@ -132,13 +130,25 @@ public class UserServiceImpl implements UserService {
         Optional<Account> accountOptional = userRepository.findById(id);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
-           if(!passwordDtoRequest.getNewPassword().equals(passwordDtoRequest.getConfirmPassword())){
-               return ResponseEntity.badRequest().body(new MessageResponse("New password not same the face password verify", account.getEmail()));
-           }
-           account.setPassword(passwordEncoder.encode(passwordDtoRequest.getNewPassword()));
-           userRepository.save(account);
+            if (!passwordDtoRequest.getNewPassword().equals(passwordDtoRequest.getConfirmPassword())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("New password not same the face password verify", account.getEmail()));
+            }
+            account.setPassword(passwordEncoder.encode(passwordDtoRequest.getNewPassword()));
+            userRepository.save(account);
             return ResponseEntity.ok().body(new MessageResponse("Change Password Successful", account.getEmail()));
 
+        }
+        throw new ResourceNotFoundException("Account found");
+    }
+
+    @Override
+    public ResponseEntity<?> findById(Long id) {
+        Optional<Account> accountOptional = userRepository.findById(id);
+        if (accountOptional.isPresent()) {
+            if (accountOptional.get().isStatus()) {
+                return ResponseEntity.ok().body(new MessageResponse("Search successful", modelMapper.map(accountOptional.get(), InformationUserDtoResponse.class)));
+            }
+            throw new ResourceNotFoundException("Account found");
         }
         throw new ResourceNotFoundException("Account found");
     }

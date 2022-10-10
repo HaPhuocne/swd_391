@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 @Component
 public interface UserRepository extends JpaRepository<Account,Long> {
+
+
     Optional<Account> findByEmail(String email);
 
     @Query(value = "select a from Account a " +

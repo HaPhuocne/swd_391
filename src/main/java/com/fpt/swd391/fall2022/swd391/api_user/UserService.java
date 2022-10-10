@@ -12,14 +12,16 @@ public interface UserService {
 
     ResponseEntity<?> Register(UserDtoRequest userDtoRequest);
 
-    List<InformationUserDtoResponse> listFilterSearchPaging(String filter, int pageNo, int pageSize);
+    PageResponse<InformationUserDtoResponse> listFilterSearchPaging(String filter, int pageNo, int pageSize);
 
-    List<InformationUserDtoResponse> list(int pageNo, int pageSize);
 
     ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, Long id);
 
     ResponseEntity<?> Delete(Long id);
     ResponseEntity<?> ChangePassword(PasswordDtoRequest passwordDtoRequest, Long id);
+
+    ResponseEntity<?> findById(Long id);
+
 
 
 }
