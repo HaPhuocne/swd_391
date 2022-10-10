@@ -26,7 +26,8 @@ public class InformationController {
     }
     @Operation(
             summary = "search thông tin account ",
-            description = "trả về thông tin các account được search",
+            description = "trả về thông tin các account được search" +
+                    "pageNo là số phần tử hiện trong 1 trang , pageSize là số trang",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Thành công"),
                     @ApiResponse(responseCode = "500", description = "Lỗi Server"),
