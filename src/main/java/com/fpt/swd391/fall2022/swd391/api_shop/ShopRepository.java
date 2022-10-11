@@ -9,6 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface ShopRepository extends JpaRepository<Shop,Long> {
+    @Query(value = "SELECT s.* from shop s WHERE s.name = :name and s.status = 1",nativeQuery = true)
+    Optional<Shop> findByName(String name);
     @Query(value = "DELETE from shop s WHERE s.id = :id",nativeQuery = true)
     Optional<Shop> deleteShopById(Long id);
 }
