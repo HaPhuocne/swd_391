@@ -2,6 +2,7 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ProductService {
     List<ProductResponse> findProduct(int pageNo, int pageSize);
 
     ProductPageResponse<ProductResponse> ListContentSearchProduct(String content, int pageNo, int pageSize);
+    ResponseEntity<?> findById(Long id);
+
 }

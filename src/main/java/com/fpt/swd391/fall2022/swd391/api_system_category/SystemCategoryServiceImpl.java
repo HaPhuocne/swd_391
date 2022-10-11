@@ -1,5 +1,11 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
+import com.fpt.swd391.fall2022.swd391.api_product.ProductResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.InformationUserDtoResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.MessageResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.PageResponse;
+import com.fpt.swd391.fall2022.swd391.entity.Account;
+import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
@@ -7,11 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SystemCategoryServiceImpl implements SystemCategoryService{
@@ -81,4 +89,38 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
     systemCategoryPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
     return systemCategoryResponseList;
     }
+
+    @Override
+    public PageResponse<SystemCategoryResponse> listFilterSearchPaging(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        Page<SystemCategory> systemCategoryPage = categoryRepository.findAll(pageable);
+        if (systemCategoryPage.isEmpty()) {
+            throw new ResourceNotFoundException("No Page");
+        }
+
+        return new PageResponse<SystemCategoryResponse>()
+                .setPageSize(systemCategoryPage.getSize())
+                .setTotalSize(systemCategoryPage.getTotalElements())
+                .setList(systemCategoryPage.getContent()
+                        .stream()
+                        .map(a -> modelMapper.map(a, SystemCategoryResponse.class))
+                        .collect(Collectors.toList()))
+                .setPageNumber(systemCategoryPage.getNumber());
+
+
+    }
+
+    @Override
+    public ResponseEntity<?> findById(Long id) {
+            Optional<SystemCategory> category = categoryRepository.findById(id);
+            if (category.isPresent()) {
+                if (category.get().isStatus()) {
+                    return ResponseEntity.ok().body(new MessageResponse("Search successful", modelMapper.map(category.get(), SystemCategoryResponse.class)));
+                }
+                throw new ResourceNotFoundException("Category found");
+            }
+            throw new ResourceNotFoundException("Category found");
+        }
+
 }

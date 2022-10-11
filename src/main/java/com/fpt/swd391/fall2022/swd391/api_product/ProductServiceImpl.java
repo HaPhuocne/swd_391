@@ -3,7 +3,10 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.InformationUserDtoResponse;
+import com.fpt.swd391.fall2022.swd391.api_user.dto.MessageResponse;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.PageResponse;
+import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
@@ -13,11 +16,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,6 +116,19 @@ public class ProductServiceImpl implements ProductService{
                 .setPageNo(productPage.getNumber())
                 ;
     }
+
+    @Override
+    public ResponseEntity<?> findById(Long id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            if (optionalProduct.get().isStatus()) {
+                return ResponseEntity.ok().body(new MessageResponse("Search successful", modelMapper.map(optionalProduct.get(), ProductResponse.class)));
+            }
+            throw new ResourceNotFoundException("Product found");
+        }
+        throw new ResourceNotFoundException("Product found");
+    }
+
 
     @Override
     public boolean deleteProduct(Long id) {
