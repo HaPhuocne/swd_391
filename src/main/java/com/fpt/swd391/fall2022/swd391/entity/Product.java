@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -21,7 +23,11 @@ public class Product {
     private Long id;
     private String name;
     private String deception;
+    @NotBlank(message = "quantity is mandatory")
+    @Min(1)
     private int quantity;
+    @NotBlank(message = "price is mandatory")
+    @Min(1)
     private int price;
     private int size;
     private String color;

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,7 @@ public class WareHouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String location;
+    @Min(1)
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "account_id")

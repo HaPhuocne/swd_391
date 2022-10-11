@@ -8,6 +8,8 @@ import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ShopServiceImpl implements ShopService{
     final
@@ -30,6 +32,10 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public ShopResponse addShop(Long idAccount, ShopRequest shopRequest) {
         Shop shop = modelMapper.map(shopRequest,Shop.class);
+        Optional<Shop> optionalHotel = shopRepository.findByName(shopRequest.getName());
+        if (optionalHotel.isPresent()) {
+            throw new ResourceNotFoundException("Shop is already existed. Please enter a different Shop");
+        }
         Account account = userRepository.findById(idAccount).orElseThrow(
                 () -> new ResourceNotFoundException("Not found account")
         );
