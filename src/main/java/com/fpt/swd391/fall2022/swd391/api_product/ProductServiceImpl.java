@@ -82,22 +82,6 @@ public class ProductServiceImpl implements ProductService{
         return ProductResponse.buildFromProduct(saveProduct);
     }
 
-    @Override
-    public List<ProductResponse> getAllProduct() {
-        List<Product> productList = productRepository.getAllByStatus();
-        if (productList.isEmpty()){
-            throw new ResourceNotFoundException("No product");
-        }
-        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
-    }
-    @Override
-    public List<ProductResponse> findProduct(int pageNo, int pageSize){
-        Pageable pageable = PageRequest.of(pageNo,pageSize);
-        Page<Product> productPage = productRepository.findAll(pageable);
-//        List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
-//        productPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
-        return productPage.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
-    }
 
     @Override
     public ProductPageResponse<ProductResponse> ListContentSearchProduct(String content, int pageNo, int pageSize) {
@@ -143,13 +127,4 @@ public class ProductServiceImpl implements ProductService{
         return true;
     }
 
-    @Override
-    public List<ProductResponse> searchProductBy(String content,int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo,pageSize);
-        Page<Product> productList = productRepository.searchProductBy(content,pageable);
-        if (productList.isEmpty()){
-            throw new ResourceNotFoundException("No product");
-        }
-        return productList.stream().map(ProductResponse :: buildFromProduct).collect(Collectors.toList());
-    }
 }

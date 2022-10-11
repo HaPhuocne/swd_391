@@ -10,11 +10,7 @@ import java.util.List;
 public interface ProductService {
     ProductResponse createProduct(ProductRequest productRequest,Long idShop);
     ProductResponse updateProduct(ProductRequest productRequest,Long id);
-    List<ProductResponse> getAllProduct();
     boolean deleteProduct(Long id);
-    List<ProductResponse> searchProductBy(String content,int pageNo, int pageSize);
-    List<ProductResponse> findProduct(int pageNo, int pageSize);
-
     ProductPageResponse<ProductResponse> ListContentSearchProduct(String content, int pageNo, int pageSize);
     ResponseEntity<?> findById(Long id);
 
