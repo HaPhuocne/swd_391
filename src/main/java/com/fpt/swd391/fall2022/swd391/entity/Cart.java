@@ -17,20 +17,7 @@ public class Cart  {
     @Column(name = "id_cart")
     private Long idCart;
 
-    private String name;
-
-    private String description;
-
     private int quantity;
-
-    private int price;
-
-    private int size;
-    private String color;
-
-    private String URL;
-
-
 
     @JoinColumn(name = "id_account")
     @ManyToOne(optional = false)
