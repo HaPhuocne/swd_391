@@ -21,7 +21,6 @@ public class WareHouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String location;
-    @Min(1)
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "account_id")

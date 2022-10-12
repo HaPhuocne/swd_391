@@ -23,7 +23,6 @@ public class SystemCategory {
     private String name;
 
     private boolean status;
-    @Min(1)
     private int rank;
 
     @ManyToOne

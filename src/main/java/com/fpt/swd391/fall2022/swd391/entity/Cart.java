@@ -20,6 +20,14 @@ public class Cart  {
 
     private int quantity;
 
+    private int price;
+
+    private int size;
+
+    private String color;
+
+    private String URL;
+
     @JoinColumn(name = "id_account")
     @ManyToOne(optional = false)
     private Account account;

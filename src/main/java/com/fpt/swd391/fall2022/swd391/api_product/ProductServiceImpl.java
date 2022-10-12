@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService{
                 () -> new ResourceNotFoundException("Not found shop")
         );
         SystemCategory systemCategory = categoryRepository.findById(productRequest.getIdSystemCategory()).orElseThrow(
-                ()-> new ResourceNotFoundException("Not found systemCategory")
+                () -> new ResourceNotFoundException("Not found category")
         );
         product.setShop(shop);
         product.setSystemCategory(systemCategory);
