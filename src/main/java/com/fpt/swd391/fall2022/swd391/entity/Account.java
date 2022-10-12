@@ -1,16 +1,14 @@
 package com.fpt.swd391.fall2022.swd391.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import org.hibernate.validator.constraints.Length;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -38,19 +36,19 @@ public class Account implements UserDetails {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     private Shop shop;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<WareHouse> wareHouses;
 
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private Set<Order> order;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-        private Collection<Cart> cartItemCollection;
+    private Collection<Cart> cartItemCollection;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,11 +1,7 @@
 package com.fpt.swd391.fall2022.swd391.api_system_category;
 
-import com.fpt.swd391.fall2022.swd391.api_product.ProductResponse;
-import com.fpt.swd391.fall2022.swd391.api_user.dto.InformationUserDtoResponse;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.MessageResponse;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.PageResponse;
-import com.fpt.swd391.fall2022.swd391.entity.Account;
-import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
 import com.fpt.swd391.fall2022.swd391.exception.ForbiddenException;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;

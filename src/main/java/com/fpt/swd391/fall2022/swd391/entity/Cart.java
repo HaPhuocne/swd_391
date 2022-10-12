@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cart  {
@@ -30,6 +31,7 @@ public class Cart  {
     @JoinColumn(name = "id_account")
     @ManyToOne(optional = false)
     private Account account;
+
     @JoinColumn(name = "id_product")
     @ManyToOne(optional = false)
     private Product product;
