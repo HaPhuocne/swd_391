@@ -6,15 +6,17 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class InformationUserDtoRequest {
     @NotBlank(message = "fullName is mandatory")
+    @NotNull(message = "FullName is not null")
     private String fullName;
 
-    @Max(10)
+    @Max(value = 10,message = "Max 10 numbers")
     private String phone;
 
     private String address;

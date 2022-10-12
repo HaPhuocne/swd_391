@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ShopRequest {
     @NotBlank(message = "name is mandatory")
-    @NotNull
+    @NotNull(message = "Address SHop not null")
     String address;
     String name;
 }

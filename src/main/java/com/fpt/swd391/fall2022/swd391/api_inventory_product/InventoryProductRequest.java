@@ -10,6 +10,6 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InventoryProductRequest {
-    @Min(1)
+    @Min(value = 1,message = "Min one quantity")
     int quantity;
 }

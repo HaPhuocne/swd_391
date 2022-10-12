@@ -14,6 +14,6 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 public class WareHouseRequest {
     String Location;
-    @Min(1)
+    @Min(value = 1,message = "Min 1 quantity")
     int quantity;
 }

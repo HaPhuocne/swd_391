@@ -12,13 +12,12 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequest {
-    @NotNull
+    @NotNull(message = "Not null name")
+    @NotBlank(message = "name is mandatory")
     String name;
-    @NotBlank(message = "price is mandatory")
-    @Min(1)
+    @Min(value = 1,message = "Min one quantity")
     int price;
-    @NotBlank(message = "quantity is mandatory")
-    @Min(1)
+    @Min(value = 1,message = "Min one quantity")
     int quantity;
     int size;
     String deception;

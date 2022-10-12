@@ -14,6 +14,6 @@ public class RoleDto {
 
     private Long id;
     @NotBlank(message = "name_role is mandatory")
-    @NotNull
+    @NotNull(message = "name_role not null")
     private String name_role;
 }

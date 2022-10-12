@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class PasswordDtoRequest {
     @NotBlank(message = "password is mandatory")
-    @Length(max = 128)
+    @Length(max = 128,message = "Length max 128 characters")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
             message = "a digit must occur at least once \n" +
             "a lower case letter must occur at least once\n" +

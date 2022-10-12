@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class SystemCategoryRequest {
     @NotBlank(message = "name is mandatory")
-    @NotNull
+    @NotNull(message = "name is not null")
     private String name;
-    @Min(1)
+    @Min(value = 1,message = "Min one rank")
     private int rank;
 }
