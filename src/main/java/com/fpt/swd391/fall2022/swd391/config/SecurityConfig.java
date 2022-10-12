@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.exceptionHandling().authenticationEntryPoint((request, response, exception) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,exception.getMessage()));
-        http.authorizeHttpRequests().antMatchers("/login","/register", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**","/hotel","/room").permitAll()
+        http.authorizeHttpRequests().antMatchers("/login","/register", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**","/hotel","/room","/swagger-ui/index.html").permitAll()
                 ;
 
     }
