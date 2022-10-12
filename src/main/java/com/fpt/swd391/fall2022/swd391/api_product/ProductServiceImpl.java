@@ -2,11 +2,7 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 
 import com.fpt.swd391.fall2022.swd391.api_shop.ShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryRepository;
-import com.fpt.swd391.fall2022.swd391.api_system_category.SystemCategoryResponse;
-import com.fpt.swd391.fall2022.swd391.api_user.dto.InformationUserDtoResponse;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.MessageResponse;
-import com.fpt.swd391.fall2022.swd391.api_user.dto.PageResponse;
-import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Product;
 import com.fpt.swd391.fall2022.swd391.entity.Shop;
 import com.fpt.swd391.fall2022.swd391.entity.SystemCategory;
@@ -20,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

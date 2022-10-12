@@ -1,7 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.api_user;
 
 import com.fpt.swd391.fall2022.swd391.api_user.dto.*;
-import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Role;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import com.fpt.swd391.fall2022.swd391.jwtToken.JwtUtil;
@@ -155,10 +154,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> Login(UserDtoRequestLogin userDtoRequestLogin) {
+        Optional<Account> accountOptional = userRepository.findByEmail(userDtoRequestLogin.getEmail());
+        if(!(accountOptional.get()).isStatus()){
+            return ResponseEntity.badRequest().body(new MessageResponse("Email Failing", null));
+        }
+
         try {
             Authentication authentication = manager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDtoRequestLogin.getEmail(), userDtoRequestLogin.getPassword())
             );
+
             Account account = (Account) authentication.getPrincipal();
             String accessToken = jwtUtil.generateAccessToken(account);
             UserDtoResponse userDtoResponse = new UserDtoResponse(account.getEmail(), accessToken);

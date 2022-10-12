@@ -1,9 +1,6 @@
 package com.fpt.swd391.fall2022.swd391.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Table(name = "orders")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
@@ -32,3 +30,5 @@ public class Order {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 }
+
+
