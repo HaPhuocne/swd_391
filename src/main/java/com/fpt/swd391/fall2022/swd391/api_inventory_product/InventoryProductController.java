@@ -2,10 +2,12 @@ package com.fpt.swd391.fall2022.swd391.api_inventory_product;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Tag(name = "InventoryProduct Controller", description = "API liên quan đến InventoryProduct")
 @RestController
 @RequestMapping("/inventory-products")
 public class InventoryProductController{

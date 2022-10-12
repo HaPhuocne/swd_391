@@ -2,6 +2,7 @@ package com.fpt.swd391.fall2022.swd391.api_inventory_note;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "InventoryNote Controller", description = "API liên quan đến InventoryNote")
 @RestController
 @RequestMapping("/inventory-notes")
 public class InventoryNoteController {

@@ -2,10 +2,11 @@ package com.fpt.swd391.fall2022.swd391.api_warehouse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+@Tag(name = "WareHouse Controller", description = "API liên quan đến WareHouse")
 @RestController
 @RequestMapping("/warehouses")
 public class WareHouseController {

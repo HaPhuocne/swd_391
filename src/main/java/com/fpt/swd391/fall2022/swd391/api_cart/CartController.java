@@ -2,10 +2,12 @@ package com.fpt.swd391.fall2022.swd391.api_cart;
 
 import com.fpt.swd391.fall2022.swd391.api_cart.dto.CartDto;
 import com.fpt.swd391.fall2022.swd391.api_cart.services.CartService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Cart Controller", description = "API liên quan đến Cart")
 @RestController
 @RequestMapping("/carts")
 public class CartController {
