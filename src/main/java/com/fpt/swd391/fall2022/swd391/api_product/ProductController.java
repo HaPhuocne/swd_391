@@ -3,7 +3,7 @@ package com.fpt.swd391.fall2022.swd391.api_product;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,26 @@ import javax.validation.Valid;
 @Tag(name = "Product Controller", description = "API liên quan đến Product")
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
+    final
     ProductService productService;
 
+
+
+    @Operation(
+            summary = "Tạo 1 product mới ",
+            description = "Tạo 1 product mới ",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Thành công"),
+                    @ApiResponse(responseCode = "500", description = "Lỗi Server"),
+                    @ApiResponse(responseCode = "403", description = "Truyền sai dữ liệu"),
+                    @ApiResponse(responseCode = "401", description = "Lỗi Phân quyền"),
+                    @ApiResponse(responseCode = "400", description = "Truyền sai dữ liệu"),
+
+            }
+
+    )
     @PostMapping("/{idShop}")
     ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequest, @PathVariable Long idShop) {
         return productService.createProduct(productRequest, idShop);
@@ -75,7 +91,7 @@ public class ProductController {
 
     )
     @GetMapping("")
-     ProductPageResponse<ProductResponse> ListContentSearchProduct(@RequestParam(required = false) String content, int pageNo, int pageSize) {
+      ProductPageResponse<ProductResponse> ListContentSearchProduct(@RequestParam(required = false) String content, int pageNo, int pageSize) {
         return productService.ListContentSearchProduct(content, pageSize, pageNo);
     }
 

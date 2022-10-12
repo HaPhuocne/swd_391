@@ -2,7 +2,6 @@ package com.fpt.swd391.fall2022.swd391.api_inventory_note;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +33,8 @@ public class InventoryNoteController {
 
     )
     @PostMapping("/{idShop}/{idWareHouse}")
-    InventoryNoteResponse addInventoryNote(@PathVariable Long idShop, @PathVariable Long idWareHouse, @Valid @RequestBody InventoryNoteRequest inventoryNoteRequest){
-        return inventoryNoteService.addInventoryNote(idShop,idWareHouse,inventoryNoteRequest);
+    InventoryNoteResponse addInventoryNote(@PathVariable Long idShop, @PathVariable Long idWareHouse, @Valid @RequestBody InventoryNoteRequest inventoryNoteRequest) {
+        return inventoryNoteService.addInventoryNote(idShop, idWareHouse, inventoryNoteRequest);
     }
     @Operation(
             summary = "Thêm thông tin inventoryProduct ",
@@ -51,7 +50,7 @@ public class InventoryNoteController {
 
     )
     @GetMapping
-    List<InventoryNoteResponse> getAllInventoryNote(){
+    List<InventoryNoteResponse> getAllInventoryNote() {
         return inventoryNoteService.getAllInventory();
     }
 
@@ -69,10 +68,10 @@ public class InventoryNoteController {
 
     )
     @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteInventoryNote(@PathVariable Long id){
-        if (inventoryNoteService.deleteInventoryNote(id)){
+    ResponseEntity<?> deleteInventoryNote(@PathVariable Long id) {
+        if (inventoryNoteService.deleteInventoryNote(id)) {
             return new ResponseEntity<>("DELETE SUCCESSFULLY", null, HttpStatus.OK);
         }
-        return new ResponseEntity<>("DELETE FAIL",null,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("DELETE FAIL", null, HttpStatus.BAD_REQUEST);
     }
 }
