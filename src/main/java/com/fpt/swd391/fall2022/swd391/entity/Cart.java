@@ -26,6 +26,7 @@ public class Cart  {
     private int price;
 
     private int size;
+
     private String color;
 
     private String URL;

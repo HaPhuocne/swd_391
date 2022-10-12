@@ -23,11 +23,7 @@ public class Product {
     private Long id;
     private String name;
     private String deception;
-    @NotBlank(message = "quantity is mandatory")
-    @Min(1)
     private int quantity;
-    @NotBlank(message = "price is mandatory")
-    @Min(1)
     private int price;
     private int size;
     private String color;

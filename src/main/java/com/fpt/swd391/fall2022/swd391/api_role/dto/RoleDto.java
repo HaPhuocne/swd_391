@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDto {
 
     private Long id;
-
+    @NotBlank(message = "name_role is mandatory")
+    @NotNull
     private String name_role;
 }

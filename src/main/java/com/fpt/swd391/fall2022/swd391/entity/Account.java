@@ -25,25 +25,10 @@ public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
-    @NotBlank(message = "email is mandatory")
-    @Email
     private String email;
-//^                 # start-of-string
-//(?=.*[0-9])       # a digit must occur at least once
-//(?=.*[a-z])       # a lower case letter must occur at least once
-//(?=.*[A-Z])       # an upper case letter must occur at least once
-//(?=.*[@#$%^&+=])  # a special character must occur at least once
-//(?=\S+$)          # no whitespace allowed in the entire string
-//.{8,}             # anything, at least eight places though
-//$                 # end-of-string
-    @NotBlank(message = "password is mandatory")
-    @Length(max = 128)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+
     private String password;
-    @NotBlank(message = "fullName is mandatory")
     private String fullName;
-    @Max(10)
     private String phone;
     private String address;
     private String image;

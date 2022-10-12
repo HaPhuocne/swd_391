@@ -19,7 +19,6 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "email is mandatory")
     private String name;
     private String address;
 
