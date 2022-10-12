@@ -2,10 +2,9 @@ package com.fpt.swd391.fall2022.swd391.api_warehouse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/warehouses")
@@ -22,10 +21,9 @@ public class WareHouseController {
                     @ApiResponse(responseCode = "400" , description = "Truyền sai dữ liệu"),
 
             }
-
     )
     @PutMapping("/{id}")
-    WareHouseResponse updateQuantityWareHouse(@PathVariable Long id, WareHouseRequest wareHouseRequest){
+    WareHouseResponse updateQuantityWareHouse(@PathVariable Long id,@Valid @RequestBody WareHouseRequest wareHouseRequest){
         return wareHouseService.updateQuantityWareHouse(id,wareHouseRequest);
     }
 }

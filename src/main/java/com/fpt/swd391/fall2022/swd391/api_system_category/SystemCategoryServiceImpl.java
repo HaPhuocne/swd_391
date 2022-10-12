@@ -51,7 +51,7 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
                 () -> new ResourceNotFoundException("Not found System Category")
         );
         Optional<SystemCategory> categoryOptional = categoryRepository.findByName(categoryRequest.getName());
-        if(!categoryOptional.isPresent() || systemCategory.getName().equals(categoryRequest.getName()) ){
+        if(categoryOptional == null || systemCategory.getName().equals(categoryRequest.getName()) ){
             modelMapper.map(categoryRequest, systemCategory);
             categoryRepository.save(systemCategory);
             return modelMapper.map(systemCategory, SystemCategoryResponse.class);
