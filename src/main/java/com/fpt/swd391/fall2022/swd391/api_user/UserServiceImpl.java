@@ -1,6 +1,7 @@
 package com.fpt.swd391.fall2022.swd391.api_user;
 
 import com.fpt.swd391.fall2022.swd391.api_user.dto.*;
+import com.fpt.swd391.fall2022.swd391.entity.Account;
 import com.fpt.swd391.fall2022.swd391.entity.Role;
 import com.fpt.swd391.fall2022.swd391.exception.ResourceNotFoundException;
 import com.fpt.swd391.fall2022.swd391.jwtToken.JwtUtil;

@@ -1,6 +1,5 @@
 package com.fpt.swd391.fall2022.swd391.api_order.dto;
 
-import com.fpt.swd391.fall2022.swd391.entity.OrderDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
