@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -93,6 +94,15 @@ public class ProductServiceImpl implements ProductService{
                         .collect(Collectors.toList()))
                 .setPageNo(productPage.getNumber())
                 ;
+    }
+
+    @Override
+    public List<ProductResponse> getAllProduct(){
+        List<Product> productList = productRepository.getAllByStatus();
+        if(productList.isEmpty()){
+            throw new ResourceNotFoundException("No product");
+        }
+        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
     }
 
     @Override

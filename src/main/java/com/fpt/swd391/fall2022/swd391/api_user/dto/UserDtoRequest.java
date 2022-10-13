@@ -33,8 +33,9 @@ public class UserDtoRequest {
     @NotNull(message = "fullName is not null")
     @NotBlank(message = "fullName is mandatory")
     private String fullName;
-    @NotNull
-    @Max(value = 10,message = "Max 10 numbers")
+    @Pattern(regexp = "^(0[3|5|7|8|9])+([0-9]{8})\\b$",
+            message = "84 or 0 +[3,5,7,8,9] " +
+                    "anything, at least eight places though")
     private String phone;
     @NotNull
     private String address;

@@ -12,7 +12,7 @@ public interface SystemCategoryService {
     SystemCategoryResponse createCategory(SystemCategoryRequest categoryRequest);
     SystemCategoryResponse updateNameCategory(SystemCategoryRequest categoryRequest, Long id);
 
-    List<SystemCategoryResponse> getAllCategory ();
+    List<SystemCategoryResponse> getAllCategory();
     boolean deleteCategory(Long id);
     List<SystemCategoryResponse> findSystemCategories(int pageNo,int pageSize);
 

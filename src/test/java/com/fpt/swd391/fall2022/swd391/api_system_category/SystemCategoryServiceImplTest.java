@@ -104,21 +104,21 @@ public class SystemCategoryServiceImplTest {
                 () -> systemCategoryService.deleteCategory(1L));
         assertThat(resourceNotFoundException.getMessage(),is("SystemCategory not found"));
     }
-    @Test
-    void getAllHotel_ShouldReturnListHotelResponse_WhenDataValid(){
-        when(systemCategoryRepository.getAllCategoryByStatus()).thenReturn(systemCategoryList);
-        when(modelMapper.map(systemCategory,SystemCategoryResponse.class)).thenReturn(systemCategoryResponse);
-        List<SystemCategoryResponse> hotelResponses= systemCategoryService.getAllCategory();
-        assertThat(hotelResponses.size(),is(systemCategoryList.size()));
-    }
+//    @Test
+//    void getAllHotel_ShouldReturnListHotelResponse_WhenDataValid(){
+//        when(systemCategoryRepository.getAllCategoryByStatus()).thenReturn(systemCategoryList);
+//        when(modelMapper.map(systemCategory,SystemCategoryResponse.class)).thenReturn(systemCategoryResponse);
+//        List<SystemCategoryResponse> hotelResponses= systemCategoryService.getAllCategory();
+//        assertThat(hotelResponses.size(),is(systemCategoryList.size()));
+//    }
 
-    @Test
-    void getAllHotel_ShouldReturnException_WhenHotelIsEmpty(){
-        when(systemCategoryRepository.getAllCategoryByStatus()).thenReturn(systemCategoryList);
-        when(systemCategoryList.isEmpty()).thenReturn(true);
-        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> systemCategoryService.getAllCategory());
-        assertThat(resourceNotFoundException.getMessage(),is("SystemCategory not found"));
-    }
+//    @Test
+//    void getAllHotel_ShouldReturnException_WhenHotelIsEmpty(){
+//        when(systemCategoryRepository.getAllCategoryByStatus()).thenReturn(systemCategoryList);
+//        when(systemCategoryList.isEmpty()).thenReturn(true);
+//        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
+//                () -> systemCategoryService.getAllCategory());
+//        assertThat(resourceNotFoundException.getMessage(),is("SystemCategory not found"));
+//    }
 }
 

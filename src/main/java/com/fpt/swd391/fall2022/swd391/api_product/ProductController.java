@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Tag(name = "Product Controller", description = "API liên quan đến Product")
 @RestController
@@ -113,4 +114,8 @@ public class ProductController {
         return productService.findById(id);
     }
 
+    @GetMapping("/getAllProduct")
+    List<ProductResponse> getAllProduct(){
+        return productService.getAllProduct();
+    }
 }

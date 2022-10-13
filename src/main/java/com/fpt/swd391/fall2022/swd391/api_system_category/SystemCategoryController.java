@@ -128,5 +128,8 @@ public class SystemCategoryController {
         return systemCategoryService.findById(id);
     }
 
-
+    @GetMapping("/getAllCategory")
+    List<SystemCategoryResponse> getAllCategory(){
+        return systemCategoryService.getAllCategory();
+    }
 }

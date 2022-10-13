@@ -118,5 +118,4 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
             }
             throw new ResourceNotFoundException("Category found");
         }
-
 }
