@@ -118,4 +118,14 @@ public class ProductController {
     List<ProductResponse> getAllProduct(){
         return productService.getAllProduct();
     }
+
+    @GetMapping("/shop/{shopName}")
+    List<ProductResponse> getProductByShopName(@PathVariable String shopName){
+        return productService.getProductByShopName(shopName);
+    }
+
+    @GetMapping("/category/{categoryName}")
+    List<ProductResponse> getProductByCategoryName(@PathVariable String categoryName){
+        return productService.getProductBySystemCategoryName(categoryName);
+    }
 }

@@ -23,4 +23,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "where (lower(p.name)  like lower(concat('%', :content,'%'))) " +
             "or (lower(s.name) like lower(concat('%', :content,'%')))",nativeQuery = true)
     Page<Product> searchProductBy(String content, Pageable pageable);
+
+    List<Product> getProductByShopName(String name);
+
+    List<Product> getProductBySystemCategoryName(String name);
 }

@@ -17,4 +17,7 @@ public interface ProductService {
 
     ResponseEntity<?> findById(Long id);
 
+    List<ProductResponse> getProductByShopName(String shopName);
+    List<ProductResponse> getProductBySystemCategoryName(String shopName);
+
 }

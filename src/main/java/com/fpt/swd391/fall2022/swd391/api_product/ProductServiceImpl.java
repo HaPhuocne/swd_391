@@ -73,7 +73,6 @@ public class ProductServiceImpl implements ProductService{
         oldProduct.setStatus(oldProduct.isStatus());
 
         Product saveProduct= productRepository.save(oldProduct);
-
         return ProductResponse.buildFromProduct(saveProduct);
     }
 
@@ -115,6 +114,24 @@ public class ProductServiceImpl implements ProductService{
             throw new ResourceNotFoundException("Product found");
         }
         throw new ResourceNotFoundException("Product found");
+    }
+
+    @Override
+    public List<ProductResponse> getProductByShopName(String shopName) {
+        List<Product> productList = productRepository.getProductByShopName(shopName);
+        if (productList.isEmpty()){
+            throw new ResourceNotFoundException("Not found product");
+        }
+        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductResponse> getProductBySystemCategoryName(String categoryName) {
+        List<Product> productList = productRepository.getProductBySystemCategoryName(categoryName);
+        if (productList.isEmpty()){
+            throw new ResourceNotFoundException("Not found product");
+        }
+        return productList.stream().map(ProductResponse::buildFromProduct).collect(Collectors.toList());
     }
 
 

@@ -22,7 +22,7 @@ public class UserDtoRequest {
     @NotNull
     @NotBlank(message = "password is mandatory")
     @Length(max = 128,message = "Length max 128 characters")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+.!=])(?=\\S+$).{8,}$",
             message = "a digit must occur at least once \n" +
                     "a lower case letter must occur at least once\n" +
                     "an upper case letter must occur at least once\n" +
@@ -37,9 +37,9 @@ public class UserDtoRequest {
             message = "84 or 0 +[3,5,7,8,9] " +
                     "anything, at least eight places though")
     private String phone;
-    @NotNull
+
     private String address;
-    @NotNull
+
     private String image;
 
     private boolean status ;
