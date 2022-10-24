@@ -17,6 +17,7 @@ public class ProductResponse {
     int size;
     String color;
     String image;
+    String deception;
     String systemCategoryName;
 
     public static ProductResponse buildFromProduct(Product product){
@@ -28,6 +29,7 @@ public class ProductResponse {
                 product.getSize(),
                 product.getColor(),
                 product.getImage(),
+                product.getDeception(),
                 product.getSystemCategory().getName()
         );
     }
