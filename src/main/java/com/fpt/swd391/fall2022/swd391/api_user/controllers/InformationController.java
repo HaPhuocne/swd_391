@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Tag(name = "Information Controller", description = "API liên quan đến Information Account và Xóa tài khoản")
 @RestController
-@RequestMapping("/Informations")
+@RequestMapping("/informations")
 public class InformationController {
     final
     UserService userService;
@@ -40,7 +40,7 @@ public class InformationController {
     )
     @GetMapping("")
     PageResponse<InformationUserDtoResponse> listFilterSearchPaging(@RequestParam(required = false) String content, int pageNo, int pageSize) {
-        return userService.listFilterSearchPaging(content, pageSize, pageNo);
+        return userService.listFilterSearchPaging(content, pageNo, pageSize);
     }
     @Operation(
             summary = "Search Thông tin account bằng Id ",
@@ -55,10 +55,10 @@ public class InformationController {
             }
 
     )
-    @GetMapping("/{id}")
-    ResponseEntity<?> findById(@PathVariable Long id)
+    @GetMapping("/{email}")
+    ResponseEntity<?> findByEmail(@PathVariable String email)
     {
-        return userService.findById(id);
+        return userService.findById(email);
     }
     @Operation(
             summary = "Thay đổi thông tin account ",
@@ -72,9 +72,9 @@ public class InformationController {
 
             }
     )
-    @PostMapping("/{id}")
-    ResponseEntity<?> updateInformation(@RequestBody @Valid InformationUserDtoRequest request, @Valid @PathVariable Long id) {
-        return userService.UpdateInformation(request, id);
+    @PostMapping("/{email}")
+    ResponseEntity<?> updateInformation(@RequestBody @Valid InformationUserDtoRequest request, @Valid @PathVariable String email) {
+        return userService.UpdateInformation(request, email);
     }
     @Operation(
             summary = "Xóa account ",
@@ -104,8 +104,8 @@ public class InformationController {
 
             }
     )
-    @PutMapping("/changepassword/{id}")
-    ResponseEntity<?> changePassword(@RequestBody @Valid PasswordDtoRequest request, @Valid @PathVariable Long id) {
-        return userService.ChangePassword(request, id);
+    @PutMapping("/change_password/{email}")
+    ResponseEntity<?> changePassword(@RequestBody @Valid PasswordDtoRequest request, @Valid @PathVariable String email) {
+        return userService.ChangePassword(request, email);
     }
 }

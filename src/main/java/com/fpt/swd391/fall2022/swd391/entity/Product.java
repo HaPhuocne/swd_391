@@ -20,15 +20,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(length = 2000)
     private String deception;
     private int quantity;
     private int price;
-    private int size;
+    private String size;
     private String color;
     private String URL;
     private boolean status;
 
-    @Column(columnDefinition = "varchar(1000)", nullable = false)
+    @Column(columnDefinition = "varchar(5000)", nullable = false)
     private String image;
 
     @ManyToOne

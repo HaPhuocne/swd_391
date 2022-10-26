@@ -106,7 +106,7 @@ public class SystemCategoryController {
     )
     @GetMapping("")
     PageResponse<SystemCategoryResponse> listFilterSearchPaging( int pageNo, int pageSize) {
-        return systemCategoryService.listFilterSearchPaging(pageSize, pageNo);
+        return systemCategoryService.listFilterSearchPaging(pageNo,pageSize);
     }
 
     @Operation(

@@ -14,7 +14,7 @@ public class ProductResponse {
     String name;
     int price;
     int quantity;
-    int size;
+    String size;
     String color;
     String image;
     String deception;

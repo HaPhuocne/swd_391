@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, Long id) {
-        Optional<Account> accountOptional = userRepository.findById(id);
+    public ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, String email) {
+        Optional<Account> accountOptional = userRepository.findByEmail(email);
 
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
@@ -126,8 +126,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> ChangePassword(PasswordDtoRequest passwordDtoRequest, Long id) {
-        Optional<Account> accountOptional = userRepository.findById(id);
+    public ResponseEntity<?> ChangePassword(PasswordDtoRequest passwordDtoRequest, String email) {
+        Optional<Account> accountOptional = userRepository.findByEmail(email);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
             if (!passwordDtoRequest.getNewPassword().equals(passwordDtoRequest.getConfirmPassword())) {
@@ -142,8 +142,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> findById(Long id) {
-        Optional<Account> accountOptional = userRepository.findById(id);
+    public ResponseEntity<?> findById(String email) {
+        Optional<Account> accountOptional = userRepository.findByEmail(email);
         if (accountOptional.isPresent()) {
             if (accountOptional.get().isStatus()) {
                 return ResponseEntity.ok().body(new MessageResponse("Search successful", modelMapper.map(accountOptional.get(), InformationUserDtoResponse.class)));

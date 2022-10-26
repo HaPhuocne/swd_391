@@ -23,11 +23,11 @@ public class UserDtoRequest {
     @NotBlank(message = "password is mandatory")
     @Length(max = 128,message = "Length max 128 characters")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+.!=])(?=\\S+$).{8,}$",
-            message = "a digit must occur at least once \n" +
-                    "a lower case letter must occur at least once\n" +
-                    "an upper case letter must occur at least once\n" +
-                    "a special character must occur at least once\n" +
-                    "no whitespace allowed in the entire string\n" +
+            message = "a digit must occur at least once \n " +
+                    "a lower case letter must occur at least once \n " +
+                    "an upper case letter must occur at least once \n " +
+                    "a special character must occur at least once \n " +
+                    "no whitespace allowed in the entire string \n " +
                     "anything, at least eight places though.")
     private String password;
     @NotNull(message = "fullName is not null")

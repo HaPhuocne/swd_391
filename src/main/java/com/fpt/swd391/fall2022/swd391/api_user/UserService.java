@@ -13,12 +13,12 @@ public interface UserService {
     PageResponse<InformationUserDtoResponse> listFilterSearchPaging(String filter, int pageNo, int pageSize);
 
 
-    ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, Long id);
+    ResponseEntity<?> UpdateInformation(InformationUserDtoRequest informationUserDtoRequest, String email);
 
     ResponseEntity<?> Delete(Long id);
-    ResponseEntity<?> ChangePassword(PasswordDtoRequest passwordDtoRequest, Long id);
+    ResponseEntity<?> ChangePassword(PasswordDtoRequest passwordDtoRequest, String email);
 
-    ResponseEntity<?> findById(Long id);
+    ResponseEntity<?> findById(String email);
 
 
 
