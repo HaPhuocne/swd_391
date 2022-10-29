@@ -19,7 +19,7 @@ public class ProductRequest {
     int price;
     @Min(value = 1,message = "Min one quantity")
     int quantity;
-    int size;
+    String size;
     String deception;
     String color;
     String image;

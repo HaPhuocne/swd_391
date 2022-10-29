@@ -29,6 +29,7 @@ public class Account implements UserDetails {
     private String fullName;
     private String phone;
     private String address;
+    @Column(length = 5000)
     private String image;
     private boolean status;
     private float wallet;

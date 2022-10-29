@@ -80,7 +80,7 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
 
     public List<SystemCategoryResponse> findSystemCategories(int pageNo,int pageSize){
     Pageable pageable = PageRequest.of(pageNo,pageSize);
-    Page<SystemCategory> systemCategoryPage = categoryRepository.findAll(pageable);
+    Page<SystemCategory> systemCategoryPage = categoryRepository.getAllCategoryByStatus(pageable);
     List<SystemCategoryResponse> systemCategoryResponseList = new ArrayList<>();
     systemCategoryPage.forEach(h -> systemCategoryResponseList.add(modelMapper.map(h,SystemCategoryResponse.class)));
     return systemCategoryResponseList;
@@ -90,7 +90,7 @@ public class SystemCategoryServiceImpl implements SystemCategoryService{
     public PageResponse<SystemCategoryResponse> listFilterSearchPaging(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
 
-        Page<SystemCategory> systemCategoryPage = categoryRepository.findAll(pageable);
+        Page<SystemCategory> systemCategoryPage = categoryRepository.getAllCategoryByStatus(pageable);
         if (systemCategoryPage.isEmpty()) {
             throw new ResourceNotFoundException("No Page");
         }

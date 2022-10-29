@@ -31,14 +31,15 @@ public class ShopServiceImpl implements ShopService{
 
     @Override
     public ShopResponse addShop(Long idAccount, ShopRequest shopRequest) {
-        Shop shop = modelMapper.map(shopRequest,Shop.class);
-        Optional<Shop> optionalHotel = shopRepository.findByName(shopRequest.getName());
-        if (optionalHotel.isPresent()) {
-            throw new ResourceNotFoundException("Shop is already existed. Please enter a different Shop");
-        }
         Account account = userRepository.findById(idAccount).orElseThrow(
                 () -> new ResourceNotFoundException("Not found account")
         );
+        Optional<Shop> optionalHotel = shopRepository.findByName(shopRequest.getName());
+        if (optionalHotel.get().getName().equals(account.getShop().getName())) {
+            throw new ResourceNotFoundException("Shop is already existed. Please enter a different Shop");
+        }
+
+        Shop shop = modelMapper.map(shopRequest,Shop.class);
         shop.setAccount(account);
         shop.setStatus(true);
         shopRepository.save(shop);

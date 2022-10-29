@@ -84,8 +84,6 @@ public class UserServiceImpl implements UserService {
                         .map(acc -> modelMapper.map(acc, InformationUserDtoResponse.class))
                         .collect(Collectors.toList()))
                 .setPageNumber(accountPage.getNumber());
-
-
     }
 
 
@@ -100,6 +98,7 @@ public class UserServiceImpl implements UserService {
                 account.setPhone(informationUserDtoRequest.getPhone());
                 account.setAddress(informationUserDtoRequest.getAddress());
                 account.setImage(informationUserDtoRequest.getImage());
+                userRepository.save(account);
                 return ResponseEntity.ok().body(new MessageResponse("Update Information successful", informationUserDtoRequest));
             }
             throw new ResourceNotFoundException("Account is blocked");
@@ -156,7 +155,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> Login(UserDtoRequestLogin userDtoRequestLogin) {
         Optional<Account> accountOptional = userRepository.findByEmail(userDtoRequestLogin.getEmail());
-        if(!(accountOptional.get()).isStatus()){
+        if (!(accountOptional.get()).isStatus()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Email Failing", null));
         }
 
