@@ -18,11 +18,11 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "SELECT p.* FROM product p where p.system_category_id = :idCategory",nativeQuery = true)
     Optional<Product> deleteProductByIdSystemCategory(Long idCategory);
 
-    @Query(value = "select p.* from product p " +
-            "join system_category s on s.id = p.system_category_id " +
-            "where (lower(p.name)  like lower(concat('%', :content,'%'))) " +
-            "or (lower(s.name) like lower(concat('%', :content,'%'))) " +
-            "and p.status = true",nativeQuery = true)
+    @Query(value = "select p.* from product p \n" +
+            "join system_category s on s.id = p.system_category_id \n" +
+            "where \n" +
+            "(p.status = true and (lower(p.\"name\")  like lower(concat('%',:content,'%'))) ) \n" +
+            "or (p.status = true and (lower(s.name) like lower(concat('%',:content,'%'))) )",nativeQuery = true)
     Page<Product> searchProductBy(String content, Pageable pageable);
 
     List<Product> getProductByShopName(String name);

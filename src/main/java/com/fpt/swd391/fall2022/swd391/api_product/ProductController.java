@@ -92,7 +92,9 @@ public class ProductController {
 
     )
     @GetMapping("")
-      ProductPageResponse<ProductResponse> ListContentSearchProduct(@RequestParam(required = false) String content, int pageNo, int pageSize) {
+      ProductPageResponse<ProductResponse> ListContentSearchProduct(@RequestParam(required = false) String content,
+                                                                    @RequestParam(defaultValue = "0",required = false) int pageNo,
+                                                                    @RequestParam(defaultValue = "10",required = false) int pageSize) {
         return productService.ListContentSearchProduct(content, pageNo, pageSize);
     }
 
