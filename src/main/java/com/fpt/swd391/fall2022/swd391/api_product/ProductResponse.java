@@ -19,6 +19,7 @@ public class ProductResponse {
     String image;
     String deception;
     String systemCategoryName;
+    Long systemCategoryId;
 
     public static ProductResponse buildFromProduct(Product product){
         return new ProductResponse(
@@ -30,7 +31,8 @@ public class ProductResponse {
                 product.getColor(),
                 product.getImage(),
                 product.getDeception(),
-                product.getSystemCategory().getName()
+                product.getSystemCategory().getName(),
+                product.getSystemCategory().getId()
         );
     }
 }
