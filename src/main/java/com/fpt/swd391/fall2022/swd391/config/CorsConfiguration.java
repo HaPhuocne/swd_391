@@ -14,8 +14,8 @@ public class CorsConfiguration
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("https://be-c2c.herokuapp.com/"
-                        ,"http://localhost:3000/","https://be-c2c.herokuapp.com/*");
+                registry.addMapping("/**").allowedMethods("*").allowedOrigins("*")
+                        .allowedHeaders("*");
             }
         };
     }
