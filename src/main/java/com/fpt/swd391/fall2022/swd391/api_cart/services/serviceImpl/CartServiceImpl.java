@@ -68,7 +68,6 @@ public class CartServiceImpl implements CartService {
     public boolean isCartExistByProduct(long id, long userId) {
         Account account = getAccountById(userId);
         Product product = getProductById(id);
-
         return cartRepository.existsByAccountAndProduct(account, product);
     }
 
@@ -86,7 +85,7 @@ public class CartServiceImpl implements CartService {
                     return CartResponse.builder()
                             .id(cart.getIdCart())
                             .userDtoResponse(modelMapper.map(account, InformationUserDtoResponse.class))
-                            .productResponse(modelMapper.map(product,ProductResponse.class))
+                            .productResponse(modelMapper.map(product, ProductResponse.class))
                             .quantity(cart.getQuantity()).build();
                 })
                 .collect(Collectors.toList());
@@ -106,28 +105,44 @@ public class CartServiceImpl implements CartService {
         int quantity = cartDto.getQuantity();
         Product product = getProductById(idProduct);
         Account account = getAccountById(idAccount);
-
-        if (isCartExistByProduct(idProduct, idAccount)) {
-            throw new ConstraintViolateException("Cannot add to cart due to already exist !!!");
-        }
         if (quantity > product.getQuantity()) {
             throw new ConstraintViolateException("Cannot add to cart due to over quantity !!!");
         }
 
-        Cart cart = Cart.builder()
-                        .account(account)
-                        .product(product)
-                        .quantity(quantity).build();
-        cartRepository.save(cart);
-        CartResponse cartResponse = new CartResponse();
-        ProductResponse productResponse = modelMapper.map(product,ProductResponse.class);
-        InformationUserDtoResponse userDtoResponse = modelMapper.map(account, InformationUserDtoResponse.class);
-        cartResponse.setUserDtoResponse(userDtoResponse);
-        cartResponse.setProductResponse(productResponse);
-        cartResponse.setQuantity(cart.getQuantity());
-        cartResponse.setId(cart.getIdCart());
+        if (isCartExistByProduct(idProduct, idAccount)) {
+            Cart cart = getCartByProduct(idProduct, idAccount);
+            cart.setQuantity(cart.getQuantity() + 1);
+            if (cart.getQuantity() > product.getQuantity()) {
+                throw new ConstraintViolateException("Cannot add to cart due to over quantity !!!");
+            }
+            cartRepository.save(cart);
+            CartResponse cartResponse = new CartResponse();
+            ProductResponse productResponse = modelMapper.map(cart.getProduct(), ProductResponse.class);
+            InformationUserDtoResponse userDtoResponse = modelMapper.map(cart.getAccount(), InformationUserDtoResponse.class);
+            cartResponse.setUserDtoResponse(userDtoResponse);
+            cartResponse.setProductResponse(productResponse);
+            cartResponse.setQuantity(cart.getQuantity());
+            cartResponse.setId(cart.getIdCart());
+            return cartResponse;
 
-        return cartResponse;
+//            throw new ConstraintViolateException("Cannot add to cart due to already exist !!!");
+        } else {
+            Cart cart = Cart.builder()
+                    .account(account)
+                    .product(product)
+                    .quantity(quantity).build();
+            cartRepository.save(cart);
+            CartResponse cartResponse = new CartResponse();
+            ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
+            InformationUserDtoResponse userDtoResponse = modelMapper.map(account, InformationUserDtoResponse.class);
+            cartResponse.setUserDtoResponse(userDtoResponse);
+            cartResponse.setProductResponse(productResponse);
+            cartResponse.setQuantity(cart.getQuantity());
+            cartResponse.setId(cart.getIdCart());
+            return cartResponse;
+
+        }
+
     }
 
     @Override
@@ -137,8 +152,8 @@ public class CartServiceImpl implements CartService {
         Cart cart = this.cartRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Not Found Cart With ID: " + id));
-        int oldQuantity = cart.getQuantity();
-        cart.setQuantity(oldQuantity + quantity);
+//        int oldQuantity = cart.getQuantity();
+        cart.setQuantity(quantity);
         Product product = getProductById(cart.getProduct().getId());
 
         if (cart.getQuantity() > product.getQuantity()) {
@@ -146,7 +161,7 @@ public class CartServiceImpl implements CartService {
         }
         cartRepository.save(cart);
         CartResponse cartResponse = new CartResponse();
-        ProductResponse productResponse = modelMapper.map(cart.getProduct(),ProductResponse.class);
+        ProductResponse productResponse = modelMapper.map(cart.getProduct(), ProductResponse.class);
         InformationUserDtoResponse userDtoResponse = modelMapper.map(cart.getAccount(), InformationUserDtoResponse.class);
         cartResponse.setUserDtoResponse(userDtoResponse);
         cartResponse.setProductResponse(productResponse);
