@@ -166,7 +166,7 @@ public class UserServiceImpl implements UserService {
 
             Account account = (Account) authentication.getPrincipal();
             String accessToken = jwtUtil.generateAccessToken(account);
-            UserDtoResponse userDtoResponse = new UserDtoResponse(account.getEmail(), accessToken);
+            UserDtoResponse userDtoResponse = new UserDtoResponse(account.getEmail(), account.getId(), accessToken);
             return ResponseEntity.ok(userDtoResponse);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.badRequest().body(new MessageResponse("Email Failing", null));

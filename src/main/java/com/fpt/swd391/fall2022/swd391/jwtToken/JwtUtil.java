@@ -20,7 +20,8 @@ public class JwtUtil {
     private String security;
     public String generateAccessToken(Account account){
         return Jwts.builder()
-                .setSubject(account.getId()+", "+account.getEmail())
+                .setSubject(String.valueOf(account.getId()))
+                .claim("email",account.getEmail())
                 .setIssuer("bethichtrasua")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+ EXPIRE_DURATION))

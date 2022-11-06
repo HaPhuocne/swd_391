@@ -21,5 +21,6 @@ public interface CartRepository extends JpaRepository<Cart,Long> {
 
     boolean existsByAccountAndProduct(Account account, Product product);
 
+    List<Cart> findByAccount(Account account);
 
 }

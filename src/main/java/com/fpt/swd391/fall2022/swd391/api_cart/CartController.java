@@ -2,9 +2,12 @@ package com.fpt.swd391.fall2022.swd391.api_cart;
 
 import com.fpt.swd391.fall2022.swd391.api_cart.dto.CartDto;
 import com.fpt.swd391.fall2022.swd391.api_cart.services.CartService;
+import com.fpt.swd391.fall2022.swd391.entity.Account;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Cart Controller", description = "API liên quan đến Cart")
@@ -37,4 +40,10 @@ public class CartController {
     public ResponseEntity<?> deleteCart(@PathVariable Long id) {
         return cartService.deleteCart(id);
     }
+    //-------------------------------
+//    @GetMapping()
+//    public String showCart(Model model, @AuthenticationPrincipal AuthenticationPrincipal authenticationPrincipal){
+//        Account account =
+//        return null;
+//    }
 }

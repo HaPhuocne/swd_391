@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDtoResponse {
     private String email;
+    private Long id;
     private String token;
 }

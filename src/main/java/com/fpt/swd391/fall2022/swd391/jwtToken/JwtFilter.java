@@ -2,6 +2,7 @@ package com.fpt.swd391.fall2022.swd391.jwtToken;
 
 
 import com.fpt.swd391.fall2022.swd391.entity.Account;
+import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,9 +50,13 @@ public class JwtFilter extends OncePerRequestFilter {
     }
     private UserDetails getUserDetails(String accessToken){
         Account account = new Account();
-        String[] subjectArray = jwtUtil.getSubject(accessToken).split(",");
-        account.setId(Long.parseLong(subjectArray[0]));
-        account.setEmail(subjectArray[1]);
+        String jwtSubject = jwtUtil.getSubject(accessToken);
+        Claims claims = jwtUtil.parseClaims(accessToken);
+        account.setEmail((String) claims.get("email"));
+        account.setId(Long.valueOf(jwtSubject));
+//        String[] subjectArray = jwtUtil.getSubject(accessToken).split(",");
+//        account.setId(Long.parseLong(subjectArray[0]));
+//        account.setEmail(subjectArray[1]);
         return account;
     }
     private boolean hasAuthorizationHeader(HttpServletRequest request) {
