@@ -18,7 +18,7 @@ public class CartDto {
 
     private Long  idAccount;
 
-    private long idProduct;
+    private Long idProduct;
 
 
 }
