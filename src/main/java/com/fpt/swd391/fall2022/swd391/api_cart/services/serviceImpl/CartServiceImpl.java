@@ -7,6 +7,7 @@ import com.fpt.swd391.fall2022.swd391.api_cart.repositories.CartProductRepositor
 import com.fpt.swd391.fall2022.swd391.api_cart.repositories.CartRepository;
 import com.fpt.swd391.fall2022.swd391.api_cart.repositories.CartShopRepository;
 import com.fpt.swd391.fall2022.swd391.api_cart.services.CartService;
+import com.fpt.swd391.fall2022.swd391.api_product.ProductRepository;
 import com.fpt.swd391.fall2022.swd391.api_product.ProductResponse;
 import com.fpt.swd391.fall2022.swd391.api_role.dto.MessageResponse;
 import com.fpt.swd391.fall2022.swd391.api_user.dto.InformationUserDtoResponse;
@@ -29,12 +30,12 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService {
     final CartAccountRepository accountRepository;
     final ModelMapper modelMapper;
-    final CartProductRepository productRepository;
+    final ProductRepository productRepository;
     final CartRepository cartRepository;
     final CartShopRepository cartShopRepository;
 
 
-    public CartServiceImpl(CartAccountRepository accountRepository, ModelMapper modelMapper, CartProductRepository productRepository, CartRepository cartRepository, CartShopRepository cartShopRepository) {
+    public CartServiceImpl(CartAccountRepository accountRepository, ModelMapper modelMapper, ProductRepository productRepository, CartRepository cartRepository, CartShopRepository cartShopRepository) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
         this.productRepository = productRepository;
@@ -46,14 +47,14 @@ public class CartServiceImpl implements CartService {
     public Account getAccountById(long idAccount) {
         return accountRepository.findById(idAccount)
                 .orElseThrow(
-                        () -> new ResourceNotFoundException("Not Found Account With ID: " + idAccount));
+                        () -> new ResourceNotFoundException("Not Found Account  With ID: " + idAccount));
     }
 
     @Override
     public Product getProductById(long idProduct) {
-        return productRepository.findById(idProduct)
+        return productRepository.findProductByIdAndStatusIsTrue(idProduct)
                 .orElseThrow(
-                        () -> new ResourceNotFoundException("Not Found Product With ID: " + idProduct));
+                        () -> new ResourceNotFoundException("Not Found Product Or Product does not exist  With ID: " + idProduct));
     }
 
     @Override
@@ -83,6 +84,7 @@ public class CartServiceImpl implements CartService {
                     Account account = cart.getAccount();
                     Product product = cart.getProduct();
                     return CartResponse.builder()
+                            .id(cart.getIdCart())
                             .userDtoResponse(modelMapper.map(account, InformationUserDtoResponse.class))
                             .productResponse(modelMapper.map(product,ProductResponse.class))
                             .quantity(cart.getQuantity()).build();

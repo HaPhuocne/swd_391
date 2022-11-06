@@ -28,4 +28,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> getProductByShopName(String name);
 
     List<Product> getProductBySystemCategoryName(String name);
+
+    Optional<Product> findProductByIdAndStatusIsTrue(Long id);
 }

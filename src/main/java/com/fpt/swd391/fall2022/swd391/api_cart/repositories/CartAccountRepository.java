@@ -17,4 +17,5 @@ public interface CartAccountRepository extends JpaRepository<Account,Long> {
 
     @Query("Select a.cartItemCollection from Account a where a.id = :idAccount ")
      List<Cart> findCartByIdAccount(Long idAccount);
+
 }
