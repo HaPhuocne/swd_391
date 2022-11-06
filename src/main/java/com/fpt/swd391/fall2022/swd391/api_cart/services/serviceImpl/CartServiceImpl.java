@@ -125,6 +125,7 @@ public class CartServiceImpl implements CartService {
         cartResponse.setUserDtoResponse(userDtoResponse);
         cartResponse.setProductResponse(productResponse);
         cartResponse.setQuantity(cart.getQuantity());
+        cartResponse.setId(cart.getIdCart());
 
         return cartResponse;
     }
@@ -150,6 +151,7 @@ public class CartServiceImpl implements CartService {
         cartResponse.setUserDtoResponse(userDtoResponse);
         cartResponse.setProductResponse(productResponse);
         cartResponse.setQuantity(cart.getQuantity());
+        cartResponse.setId(cart.getIdCart());
 
         return cartResponse;
     }
