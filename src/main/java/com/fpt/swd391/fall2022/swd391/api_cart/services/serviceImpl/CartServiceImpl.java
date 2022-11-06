@@ -72,7 +72,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Collection<CartDto> getCartByIdAccount(Long idAccount) {
+    public Collection<CartResponse> getCartByIdAccount(Long idAccount) {
         Optional<Account> optionalAccount = accountRepository.findById(idAccount);
         if (!optionalAccount.isPresent()) {
             throw new ResourceNotFoundException("Account not found");
@@ -82,9 +82,9 @@ public class CartServiceImpl implements CartService {
                 .map(cart -> {
                     Account account = cart.getAccount();
                     Product product = cart.getProduct();
-                    return CartDto.builder()
-                            .idAccount(account.getId())
-                            .idProduct(product.getId())
+                    return CartResponse.builder()
+                            .userDtoResponse(modelMapper.map(account, InformationUserDtoResponse.class))
+                            .productResponse(modelMapper.map(product,ProductResponse.class))
                             .quantity(cart.getQuantity()).build();
                 })
                 .collect(Collectors.toList());

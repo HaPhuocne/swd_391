@@ -16,7 +16,7 @@ public interface CartService {
 
       Cart getCartByProduct(long idProduct, long idAccount);
       boolean isCartExistByProduct(long id, long userId );
-      Collection<CartDto> getCartByIdAccount(Long idAccount);
+      Collection<CartResponse> getCartByIdAccount(Long idAccount);
       Account getAccountById(long idAccount);
       Product getProductById(long idProduct);
 
